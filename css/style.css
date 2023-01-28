@@ -5,17 +5,30 @@
     text-align: center;
 }
 
-
 #grid{
     display:grid;
-    grid-template-columns: repeat(12, 2fr);
-    grid-template-rows: repeat(12, 1fr);
+    grid-template-columns: repeat(20, 1fr);
+    grid-template-rows: repeat(20, 1fr);
     grid-gap: 10px;
 }
 
+/* the boxes that were created for the grid in javascript */
 .box{
     background-color: lightblue;
     text-align: center;
     line-height: 1.5;
     border:1px solid black;
+}
+
+/* hovering over the boxes */
+/* .box:hover{
+    background-color: orange;
+} */
+
+.highlight{
+    background-color: orange;
+}
+
+.hit-highlight{
+    background-color: red;
 }
