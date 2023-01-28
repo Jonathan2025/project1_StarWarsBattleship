@@ -73,4 +73,24 @@ for(let i=boxes.length/2; i<boxes.length; i++){
 }
 
 
+// Testing code - just to see how we can count how many clones/droids are in the battle field
+let cloneArmy = 0 
+let droidArmy = 0
+
+for (let i=0; i<boxes.length; i++){
+    //access the image source of each box
+    const image = boxes[i].getElementsByTagName("img")[0]
+    let imageSource = image.getAttribute("src")
+    if (imageSource === 'images/clone1.png'){
+        // if the box has an image of a clone, then add 1 to the clone army
+        cloneArmy += 1
+        //else if its a droid then add 1 to the droid army
+    } else if (imageSource === 'images/droid1.png') {
+        droidArmy += 1
+    }
+}
+
+console.log(cloneArmy)
+console.log(droidArmy)
+
 
