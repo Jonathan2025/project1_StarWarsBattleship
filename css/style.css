@@ -1,3 +1,15 @@
-body{
-    background-color: green;
+.grid{
+    display:grid;
+    grid-template-columns: repeat(3, 2fr);
+    grid-template-rows: repeat(2, 1fr);
+    grid-gap: 10px;
+}
+
+.box{
+    grid-row: "1/2";
+    grid-Column: "1 / 2";
+    background-color: lightblue;
+    text-align: center;
+    line-height: 1.5;
+    border:1px solid black;
 }
