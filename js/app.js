@@ -73,7 +73,7 @@ for(let i=boxes.length/2; i<boxes.length; i++){
 }
 
 
-// Testing code - just to see how we can count how many clones/droids are in the battle field
+// SECTION 6 just to see how we can count how many clones/droids are in the battle field
 let cloneArmy = 0 
 let droidArmy = 0
 
@@ -93,4 +93,25 @@ for (let i=0; i<boxes.length; i++){
 console.log(cloneArmy)
 console.log(droidArmy)
 
+
+//SECTION 7 Count how many clones or droids have been destroyed 
+let clonesDestroyed = 0
+let droidsDestroyed = 0 
+
+
+function countTroopsDestroyed(boxes){
+        //access the div class, if it has been hit it would say "box hit-highlight"
+        let className = boxes[i].className[1]
+        console.log(className)
+        if (className === "hit-hightlight"){
+            //access the image source from above
+            if (imageSource === 'images/clone1.png'){
+                clonesDestroyed += 1
+                console.log(clonesDestroyed)
+            } else if (imageSource === 'images/droid1.png'){
+                droidsDestroyed += 1
+                console.log(droidsDestroyed)
+            }
+        }
+    }
 
