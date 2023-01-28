@@ -21,14 +21,17 @@
 }
 
 /* hovering over the boxes */
-/* .box:hover{
-    background-color: orange;
-} */
-
 .highlight{
     background-color: orange;
 }
-
+/* hit marker on the boxes */
 .hit-highlight{
     background-color: red;
+}
+
+/* fit the images in the boxes */
+.box img{
+    width:50%;
+    height:80%;
+    /* display:none; */
 }

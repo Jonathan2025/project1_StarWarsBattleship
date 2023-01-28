@@ -47,14 +47,18 @@ for (let i=0; i<boxes.length; i++){
                 boxToHighlight.classList.add("hit-highlight")
             }
         }
-
     })
-
-
-
-
-
 
 //end of the for loop    
 }
 
+
+// SECTION 4 Add images to the boxes on the grid of the droid army
+//use the variable boxes above to access the boxes on the grid 
+const droidImage = ['images/droid1.png']
+
+for(let i=0; i<boxes.length/2; i++){
+    const droid = document.createElement("img")
+    droid.src = droidImage
+    boxes[i].appendChild(droid)
+}
