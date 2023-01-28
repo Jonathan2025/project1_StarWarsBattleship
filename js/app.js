@@ -97,21 +97,48 @@ console.log(droidArmy)
 //SECTION 7 Count how many clones or droids have been destroyed 
 let clonesDestroyed = 0
 let droidsDestroyed = 0 
+let boxesDestroyed = 0 
+
+// first let count how many boxes were clicked on first 
+for (let i = 0; i < boxes.length; i++) {
+    boxes[i].addEventListener("click", function(){
+        let boxesHit = [boxes[i], boxes[i+1], boxes[i+20], boxes[i+21]]
+        // for the boxes within the boxesToHighlight, add them to a class where we can add highlight with css later
+        for (const boxHit of boxesHit){
+            if(boxHit){
+                const image = boxHit.getElementsByTagName("img")[0]
+                let imageSource = image.getAttribute("src")
+                if (imageSource === 'images/clone1.png'){
+                    // if the box has an image of a clone, then add 1 to the clone army
+                    clonesDestroyed += 1
+                //else if its a droid then add 1 to the droid army
+                } else if (imageSource === 'images/droid1.png') {
+                    droidsDestroyed += 1
+                } 
+            } 
+        //console log the amount of allies/enemies destroyed 
+        }console.log(droidsDestroyed)
+        console.log(clonesDestroyed)
+    })
+
+//end of the for loop
+}
 
 
-function countTroopsDestroyed(boxes){
-        //access the div class, if it has been hit it would say "box hit-highlight"
-        let className = boxes[i].className[1]
-        console.log(className)
-        if (className === "hit-hightlight"){
-            //access the image source from above
-            if (imageSource === 'images/clone1.png'){
-                clonesDestroyed += 1
-                console.log(clonesDestroyed)
-            } else if (imageSource === 'images/droid1.png'){
-                droidsDestroyed += 1
-                console.log(droidsDestroyed)
-            }
-        }
-    }
+
+// function countTroopsDestroyed(boxes){
+//         //access the div class, if it has been hit it would say "box hit-highlight"
+//         let className = boxes[i].className[1]
+//         console.log(className)
+//         if (className === "hit-hightlight"){
+//             //access the image source from above
+//             if (imageSource === 'images/clone1.png'){
+//                 clonesDestroyed += 1
+//                 console.log(clonesDestroyed)
+//             } else if (imageSource === 'images/droid1.png'){
+//                 droidsDestroyed += 1
+//                 console.log(droidsDestroyed)
+//             }
+//         }
+//     }
 
