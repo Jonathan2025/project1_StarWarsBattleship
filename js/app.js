@@ -62,3 +62,15 @@ for(let i=0; i<boxes.length/2; i++){
     droid.src = droidImage
     boxes[i].appendChild(droid)
 }
+
+// SECTION 5 Add images to the boxes on the grid of the clone army 
+const cloneImage = ['images/clone1.png']
+
+for(let i=boxes.length/2; i<boxes.length; i++){
+    const clone = document.createElement("img")
+    clone.src = cloneImage
+    boxes[i].appendChild(clone)
+}
+
+
+
