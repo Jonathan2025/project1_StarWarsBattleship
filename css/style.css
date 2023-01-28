@@ -1,13 +1,19 @@
-.grid{
+#game-title{
+    font-family: 'Star Wars', sans-serif;
+    letter-spacing: 0.1em;
+    background-color: #f8d31b;
+    text-align: center;
+}
+
+
+#grid{
     display:grid;
-    grid-template-columns: repeat(3, 2fr);
-    grid-template-rows: repeat(2, 1fr);
+    grid-template-columns: repeat(12, 2fr);
+    grid-template-rows: repeat(12, 1fr);
     grid-gap: 10px;
 }
 
 .box{
-    grid-row: "1/2";
-    grid-Column: "1 / 2";
     background-color: lightblue;
     text-align: center;
     line-height: 1.5;
