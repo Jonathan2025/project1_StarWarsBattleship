@@ -16,8 +16,8 @@ body{
 
 #grid{
     display:grid;
-    grid-template-columns: repeat(20, 1fr);
-    grid-template-rows: repeat(20, 1fr);
+    grid-template-columns: repeat(15, 1fr);
+    grid-template-rows: repeat(15, 1fr);
     grid-gap: 10px;
 }
 
@@ -42,7 +42,7 @@ body{
 .box img{
     width:50%;
     height:80%;
-    display:block;
+    display:none;
 }
 
 
@@ -58,3 +58,17 @@ body{
     border: 2px solid black;
 }
 
+
+/* style grids 2 which houses player1's game pieces */
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    grid-template-columns;
+    grid-gap: 10px;
+    border: 3px solid red
+  }
+/* game pieces */
+.grid-item {
+    width: 50px;
+    height: auto;
+}
