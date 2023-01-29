@@ -1,12 +1,13 @@
-// SECTION 0 - Create the Global game variables 
+// SECTION 0 - Create the global game variables 
 let cloneArmy = document.querySelector("#cloneCount")
-    cloneArmy.innerHTML = 200
+    cloneArmy.innerHTML = 100
 let droidArmy = document.querySelector("#droidCount")
-    droidArmy.innerHTML = 200
+    droidArmy.innerHTML = 100
 let clonesDestroyed = document.querySelector("#cloneCasualties")
     clonesDestroyed.innerHTML =0
 let droidsDestroyed = document.querySelector("#droidCasualties")
     droidsDestroyed.innerHTML = 0 
+const boxes = document.getElementsByClassName("box");
 
 // SECTION 1 - Create the Grid 
 const grid = document.getElementById("grid")
@@ -21,7 +22,6 @@ for(let i=0; i<400; i++){
 
 
 // Section 2 - when the user HOVERS over an area, that area will highlight
-const boxes = document.getElementsByClassName("box");
 
 for (let i=0; i<boxes.length; i++){
     // within the grid, the user will be able to hover over a 2x2 section of the grid
@@ -36,7 +36,7 @@ for (let i=0; i<boxes.length; i++){
         }
 
     })
-    // when the user leaves that area that was hovered, UNhighlight using the same concepts above
+    // when the user leaves that area that was hovered, UN-highlight using the same concepts above
     boxes[i].addEventListener("mouseout", function(){
         // basically highlight the adjacent boxes including the one box you are hovering over
         let boxesToHighlight = [boxes[i], boxes[i+1], boxes[i+20], boxes[i+21]]
@@ -67,20 +67,43 @@ for (let i=0; i<boxes.length; i++){
 //use the variable boxes above to access the boxes on the grid 
 const droidImage = ['images/droid1.png']
 
-for(let i=0; i<boxes.length/2; i++){
-    const droid = document.createElement("img")
-    droid.src = droidImage
-    boxes[i].appendChild(droid)
+let numOfDroids = droidArmy.innerHTML //100
+
+let selectedBoxes = []
+
+// add droids scattered randomly on the battlefield
+//for(let i=0; i<numOfDroids; i++)
+while (selectedBoxes.length < numOfDroids){
+    let randomIndex = Math.floor(Math.random() * boxes.length)
+    let randomBox = boxes[randomIndex]
+    // if the random index that was chosen is in NOT already in the selectedBoxes array then
+    if(!selectedBoxes.includes(randomIndex)){
+        // push that random index to the selected boxes
+        selectedBoxes.push(randomIndex)
+        // with the random boxes add a droid image to them
+        const droid = document.createElement("img")
+        droid.src = droidImage
+        randomBox.appendChild(droid)
+    }    
 }
 
+// add droids scattered randomly on the battlefield
+// for(let i=0; i<boxes.length/2; i++){
+//     const droid = document.createElement("img")
+//     droid.src = droidImage
+//     boxes[i].appendChild(droid)
+// }
+
+
+//USE LATER
 // SECTION 5 Add images to the boxes on the grid of the clone army 
-const cloneImage = ['images/clone1.png']
+// const cloneImage = ['images/clone1.png']
 
-for(let i=boxes.length/2; i<boxes.length; i++){
-    const clone = document.createElement("img")
-    clone.src = cloneImage
-    boxes[i].appendChild(clone)
-}
+// for(let i=boxes.length/2; i<boxes.length; i++){
+//     const clone = document.createElement("img")
+//     clone.src = cloneImage
+//     boxes[i].appendChild(clone)
+// }
 
 
 // SECTION 6 just to see how we can count how many clones/droids are in the battle field
@@ -108,27 +131,31 @@ console.log(droidArmy)
 for (let i = 0; i < boxes.length; i++) {
     boxes[i].addEventListener("click", function(){
         let boxesHit = [boxes[i], boxes[i+1], boxes[i+20], boxes[i+21]]
-        // for the boxes within the boxesToHighlight, add them to a class where we can add highlight with css later
+        //for the boxes that were hit...
         for (const boxHit of boxesHit){
             if(boxHit){
-                const image = boxHit.getElementsByTagName("img")[0]
-                let imageSource = image.getAttribute("src")
-                if (imageSource === 'images/clone1.png'){
-                    // if the box has an image of a clone, then add 1 to the clone army
-                    clonesDestroyed.innerHTML = parseInt(clonesDestroyed.innerHTML) + 1
-                    cloneArmy.innerHTML = parseInt(cloneArmy.innerHTML) - 1
-                //else if its a droid then add 1 to the droid army
-                } else if (imageSource === 'images/droid1.png') {
-                    droidsDestroyed.innerHTML = parseInt(droidsDestroyed.innerHTML) + 1
-                    droidArmy.innerHTML = parseInt(droidArmy.innerHTML) - 1
-                } 
-            } 
+                // if there is an image tag inside the box... 
+                if(boxHit.getElementsByTagName("img").length >0){
+                console.log(boxHit)
+                    //get the image tag's source
+                    const image = boxHit.getElementsByTagName("img")[0]
+                    let imageSource = image.getAttribute("src")
+                    // if the box has an image of a clone,
+                    if (imageSource === 'images/clone1.png'){
+                        // then add 1 to the casualties and subtract 1 from the clone army
+                        clonesDestroyed.innerHTML = parseInt(clonesDestroyed.innerHTML) + 1
+                        cloneArmy.innerHTML = parseInt(cloneArmy.innerHTML) - 1
+                    //else if the box has an image of a droid...
+                    } else if (imageSource === 'images/droid1.png') {
+                        // then add 1 to the casualties and subtract 1 from the clone army
+                        droidsDestroyed.innerHTML = parseInt(droidsDestroyed.innerHTML) + 1
+                        droidArmy.innerHTML = parseInt(droidArmy.innerHTML) - 1
+                    }
+                }
+            }
+            //} 
         //console log the amount of allies/enemies destroyed 
         }
-
-
-
-
         console.log("Clones Destroyed " + clonesDestroyed.innerHTML)
         console.log("Clone Army " + cloneArmy.innerHTML)
         console.log("Droids Destroyed " + droidsDestroyed.innerHTML)
