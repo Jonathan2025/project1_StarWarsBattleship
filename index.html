@@ -15,33 +15,37 @@
 <body>
     <h1 id="game-title"> Star Wars battleship!</h1>
     <!-- add game stats for each player -->
-    <table id="player1table">
+    <table class="table" id="player1table">
         <tr>
-            <td>Player 1 Stats</td>
+            <td colspan="3">Player 1 Stats</td>
             <td rowspan="3">
                 <img class= icon id = "cloneIcon" src ="Images/cloneIcon.jpeg"> 
             </td>
         </tr>
         <tr> 
             <td> Clones </td>
+            <td id="cloneCount"></td>
         </tr>
         <tr> 
             <td> Casualties </td>
+            <td id="cloneCasualties"></td>
         </tr>
     </table>
 
-    <table id="player2table">
+    <table class="table" id="player2table">
         <tr>
-            <td>Player 2 Stats</td>
+            <td colspan="3">Player 2 Stats</td>
             <td rowspan="3">
                 <img class=icon id = "droidIcon" src ="Images/droidIcon.jpeg"> 
             </td>
         </tr>
         <tr> 
             <td> Droids </td>
+            <td id="droidCount"></td>
         </tr>
         <tr> 
             <td> Casualties </td>
+            <td id="droidCasualties"> </td>
         </tr>
     </table>
     
