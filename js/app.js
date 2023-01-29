@@ -66,25 +66,53 @@ for (let i=0; i<boxes.length; i++){
 // SECTION 4 Add images to the boxes on the grid of the droid army
 //use the variable boxes above to access the boxes on the grid 
 const droidImage = ['images/droid1.png']
+const cloneImage = ['images/clone1.png']
 
-let numOfDroids = droidArmy.innerHTML //100
+let numOfDroids = 100 //100
+let numOfClones = 100 //100
 
-let selectedBoxes = []
 
-// add droids scattered randomly on the battlefield
-//for(let i=0; i<numOfDroids; i++)
-while (selectedBoxes.length < numOfDroids){
+let selectedClones = []
+let selectedDroids = []
+let count = 0
+
+// Add droids scattered randomly on the battlefield
+while (selectedDroids.length < numOfDroids){
     let randomIndex = Math.floor(Math.random() * boxes.length)
     let randomBox = boxes[randomIndex]
-    // if the random index that was chosen is in NOT already in the selectedBoxes array then
-    if(!selectedBoxes.includes(randomIndex)){
-        // push that random index to the selected boxes
-        selectedBoxes.push(randomIndex)
-        // with the random boxes add a droid image to them
-        const droid = document.createElement("img")
-        droid.src = droidImage
-        randomBox.appendChild(droid)
-    }    
+    //for (i=0; i < numOfDroids; i++ ){
+        // if the random index that was chosen is in NOT already in the selectedDroids or selectedClones array then
+        if((!selectedDroids.includes(randomIndex)) && (!selectedClones.includes(randomIndex))){
+            // push that random index to the selected droids
+            selectedDroids.push(randomIndex)
+            // with the random boxes add a droid image to them
+            const droid = document.createElement("img")
+            droid.src = droidImage
+            randomBox.appendChild(droid)
+            count += 1
+            console.log(count)
+        }  
+   // }
+}
+
+// //add clones scattered randomly on the battle field 
+while (selectedClones.length < numOfClones){
+    //console.log("we reached inside ")
+    //for (i=0; i < numOfClones; i++ ){
+        let randomIndex = Math.floor(Math.random() * boxes.length)
+        let randomBox = boxes[randomIndex]
+        // if the random index that was chosen is in NOT already in the selectedBoxes array then
+        if((!selectedDroids.includes(randomIndex)) && (!selectedClones.includes(randomIndex))){
+            // push that random index to the selected clones array
+            selectedClones.push(randomIndex)
+            // with the random boxes add a clone image to them
+            const clone = document.createElement("img")
+            clone.src = cloneImage
+            randomBox.appendChild(clone)
+            count +=1
+            console.log(count)
+        }
+    //}
 }
 
 // add droids scattered randomly on the battlefield
