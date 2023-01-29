@@ -1,9 +1,12 @@
 // SECTION 0 - Create the Global game variables 
-let cloneArmy = 0 
-let droidArmy = 0
-let clonesDestroyed = 0
-let droidsDestroyed = 0 
-let boxesDestroyed = 0 
+let cloneArmy = document.querySelector("#cloneCount")
+    cloneArmy.innerHTML = 200
+let droidArmy = document.querySelector("#droidCount")
+    droidArmy.innerHTML = 200
+let clonesDestroyed = document.querySelector("#cloneCasualties")
+    clonesDestroyed.innerHTML =0
+let droidsDestroyed = document.querySelector("#droidCasualties")
+    droidsDestroyed.innerHTML = 0 
 
 // SECTION 1 - Create the Grid 
 const grid = document.getElementById("grid")
@@ -81,19 +84,19 @@ for(let i=boxes.length/2; i<boxes.length; i++){
 
 
 // SECTION 6 just to see how we can count how many clones/droids are in the battle field
-
-for (let i=0; i<boxes.length; i++){
-    //access the image source of each box
-    const image = boxes[i].getElementsByTagName("img")[0]
-    let imageSource = image.getAttribute("src")
-    if (imageSource === 'images/clone1.png'){
-        // if the box has an image of a clone, then add 1 to the clone army (variable in section 0)
-        cloneArmy += 1
-        //else if its a droid then add 1 to the droid army
-    } else if (imageSource === 'images/droid1.png') {
-        droidArmy += 1
-    }
-}
+//PROBABLY WONT NEED SINCE WE ALREADY KNOW HOW MANY ARE IN THE BATTLEFIELD
+// for (let i=0; i<boxes.length; i++){
+//     //access the image source of each box
+//     const image = boxes[i].getElementsByTagName("img")[0]
+//     let imageSource = image.getAttribute("src")
+//     if (imageSource === 'images/clone1.png'){
+//         // if the box has an image of a clone, then add 1 to the clone army (variable in section 0)
+//         cloneArmy += 1
+//         //else if its a droid then add 1 to the droid army
+//     } else if (imageSource === 'images/droid1.png') {
+//         droidArmy += 1
+//     }
+// }
 
 console.log(cloneArmy)
 console.log(droidArmy)
@@ -112,20 +115,24 @@ for (let i = 0; i < boxes.length; i++) {
                 let imageSource = image.getAttribute("src")
                 if (imageSource === 'images/clone1.png'){
                     // if the box has an image of a clone, then add 1 to the clone army
-                    clonesDestroyed += 1
-                    cloneArmy -= 1
+                    clonesDestroyed.innerHTML = parseInt(clonesDestroyed.innerHTML) + 1
+                    cloneArmy.innerHTML = parseInt(cloneArmy.innerHTML) - 1
                 //else if its a droid then add 1 to the droid army
                 } else if (imageSource === 'images/droid1.png') {
-                    droidsDestroyed += 1
-                    droidArmy -= 1
+                    droidsDestroyed.innerHTML = parseInt(droidsDestroyed.innerHTML) + 1
+                    droidArmy.innerHTML = parseInt(droidArmy.innerHTML) - 1
                 } 
             } 
         //console log the amount of allies/enemies destroyed 
         }
-        console.log("Clones Destroyed " + clonesDestroyed)
-        console.log("Clone Army " + cloneArmy)
-        console.log("Droids Destroyed " + droidsDestroyed)
-        console.log("Droid Army " + droidArmy)
+
+
+
+
+        console.log("Clones Destroyed " + clonesDestroyed.innerHTML)
+        console.log("Clone Army " + cloneArmy.innerHTML)
+        console.log("Droids Destroyed " + droidsDestroyed.innerHTML)
+        console.log("Droid Army " + droidArmy.innerHTML)
     })
 
 //end of the for loop
