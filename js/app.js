@@ -25,45 +25,63 @@ for(let i=0; i<400; i++){
 // When they click on an area, it will show a hit marker
 
 for (let i=0; i<boxes.length; i++){
-    // within the grid, the user will be able to hover over a 2x2 section of the grid
+    let boxesToHighlightPick = [boxes[i], boxes[i+1], boxes[i+20], boxes[i+21]]
+   //EVENT LISTENERS (using a parameter of boxesToHighlightPick)
+   // need to insert our function into anonymous functions
     boxes[i].addEventListener("mouseover", function(){
+        targetHover(boxesToHighlightPick)
+    })
+    boxes[i].addEventListener("mouseout", function(){
+        targetOutHover(boxesToHighlightPick)
+    })
+    boxes[i].addEventListener("click", function(){
+        targetHit(boxesToHighlightPick)
+    })
+    boxes[i].addEventListener("click", function (){
+        showLocation(boxesToHighlightPick)
+    })
+    boxes[i].addEventListener("click",function(){
+        changePlayerStats(boxesToHighlightPick)
+    })
+//end of the for loop    
+}
+
+    // The user will be able to hover over a 2x2 section of the grid
+    function targetHover(boxesToHighlightPick){
         // basically highlight the adjacent boxes including the one box you are hovering over
-        let boxesToHighlight = [boxes[i], boxes[i+1], boxes[i+20], boxes[i+21]]
+        let boxesToHighlight = boxesToHighlightPick
         // for the boxes within the boxesToHighlight, add them to a class where we can add highlight with css later
         for (const boxToHighlight of boxesToHighlight){
             if(boxToHighlight){
                 boxToHighlight.classList.add("highlight")
             }
         }
+    }
 
-    })
-
-    // when the user leaves that area that was hovered, UN-highlight using the same concepts above
-    boxes[i].addEventListener("mouseout", function(){
+    // When the user leaves that area that was hovered, UN-highlight 
+    function targetOutHover(boxesToHighlightPick){
         // basically highlight the adjacent boxes including the one box you are hovering over
-        let boxesToHighlight = [boxes[i], boxes[i+1], boxes[i+20], boxes[i+21]]
+        // let boxesToHighlight = [boxes[i], boxes[i+1], boxes[i+20], boxes[i+21]]
+        let boxesToHighlight = boxesToHighlightPick
         // for the boxes within the boxesToHighlight, add them to a class where we remove the highlight in css
         for (const boxToHighlight of boxesToHighlight){
             if(boxToHighlight){
                 boxToHighlight.classList.remove("highlight")
             }
         }
+    }
 
-    })
-    //When the player clicks on the area, then highlight the area they hit
-    boxes[i].addEventListener("click", function(){
-        let boxesToHighlight = [boxes[i], boxes[i+1], boxes[i+20], boxes[i+21]]
+    //When the player clicks on the area, highlight the area they hit
+    function targetHit(boxesToHighlightPick){
+        // let boxesToHighlight = [boxes[i], boxes[i+1], boxes[i+20], boxes[i+21]]
+        let boxesToHighlight = boxesToHighlightPick
         // for the boxes within the boxesToHighlight, add them to a class where we can add highlight with css later
         for (const boxToHighlight of boxesToHighlight){
             if(boxToHighlight){
                 boxToHighlight.classList.add("hit-highlight")
             }
         }
-    })
-
-//end of the for loop    
-}
-
+    }
 
 //Section 3 Scatter clone army and droid army on the grid
 const cloneImage = ['images/clone1.png'] 
@@ -87,6 +105,7 @@ while (selectedClones.length < numOfClones){
             // with the random boxes add a clone image to them
             const clone = document.createElement("img")
             clone.src = cloneImage
+            console.log(clone.src)
             randomBox.appendChild(clone)
         }
 }
@@ -102,40 +121,24 @@ while (selectedDroids.length < numOfDroids){
             // with the random boxes add a droid image to them
             const droid = document.createElement("img")
             droid.src = droidImage
+            console.log(droid.src)
             randomBox.appendChild(droid)
 
         }  
 }
 
 
-// SECTION 6 just to see how we can count how many clones/droids are in the battle field
-//PROBABLY WONT NEED SINCE WE ALREADY KNOW HOW MANY ARE IN THE BATTLEFIELD
-// for (let i=0; i<boxes.length; i++){
-//     //access the image source of each box
-//     const image = boxes[i].getElementsByTagName("img")[0]
-//     let imageSource = image.getAttribute("src")
-//     if (imageSource === 'images/clone1.png'){
-//         // if the box has an image of a clone, then add 1 to the clone army (variable in section 0)
-//         cloneArmy += 1
-//         //else if its a droid then add 1 to the droid army
-//     } else if (imageSource === 'images/droid1.png') {
-//         droidArmy += 1
-//     }
-// }
-
-
 //SECTION 4 Count how many clones or droids have been destroyed 
 
-// first let count how many boxes were clicked on first 
-for (let i = 0; i < boxes.length; i++) {
-    boxes[i].addEventListener("click", function(){
-        let boxesHit = [boxes[i], boxes[i+1], boxes[i+20], boxes[i+21]]
+    //Change the player stats based on what was hit in the strike
+    function changePlayerStats(boxesToHighlightPick){
+        // let boxesHit = [boxes[i], boxes[i+1], boxes[i+20], boxes[i+21]]
+        let boxesHit = boxesToHighlightPick
         //for the boxes that were hit...
         for (const boxHit of boxesHit){
             if(boxHit){
                 // if there is an image tag inside the box... 
                 if(boxHit.getElementsByTagName("img").length >0){
-                console.log(boxHit)
                     //get the image tag's source
                     const image = boxHit.getElementsByTagName("img")[0]
                     let imageSource = image.getAttribute("src")
@@ -158,16 +161,12 @@ for (let i = 0; i < boxes.length; i++) {
         console.log("Clone Army " + cloneArmy.innerHTML)
         console.log("Droids Destroyed " + droidsDestroyed.innerHTML)
         console.log("Droid Army " + droidArmy.innerHTML)
-    })
-
-//end of the for loop
-}
-
+    }
 
 //Section 5 After a hit has been made, show the location of the clone/droid destroyed
-for (let i = 0; i < boxes.length; i++) {
-    boxes[i].addEventListener("click", function(){
-        let boxesHit = [boxes[i], boxes[i+1], boxes[i+20], boxes[i+21]]
+    function showLocation(boxesToHighlightPick){
+        //let boxesHit = [boxes[i], boxes[i+1], boxes[i+20], boxes[i+21]]
+        let boxesHit = boxesToHighlightPick
         //for the boxes that were hit...
         for (const boxHit of boxesHit){
             if(boxHit){
@@ -178,8 +177,5 @@ for (let i = 0; i < boxes.length; i++) {
                 }
             }
         }
- 
-    })
+    }
 
-//end of the for loop
-}

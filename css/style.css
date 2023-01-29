@@ -42,7 +42,7 @@ body{
 .box img{
     width:50%;
     height:80%;
-    display:none;
+    display:block;
 }
 
 
