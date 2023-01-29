@@ -22,6 +22,7 @@ for(let i=0; i<400; i++){
 
 
 // Section 2 - when the user HOVERS over an area, that area will highlight
+// When they click on an area, it will show a hit marker
 
 for (let i=0; i<boxes.length; i++){
     // within the grid, the user will be able to hover over a 2x2 section of the grid
@@ -36,6 +37,7 @@ for (let i=0; i<boxes.length; i++){
         }
 
     })
+
     // when the user leaves that area that was hovered, UN-highlight using the same concepts above
     boxes[i].addEventListener("mouseout", function(){
         // basically highlight the adjacent boxes including the one box you are hovering over
@@ -48,7 +50,7 @@ for (let i=0; i<boxes.length; i++){
         }
 
     })
-    //Section 3 When the player clicks on the area, then highlight the area they hit
+    //When the player clicks on the area, then highlight the area they hit
     boxes[i].addEventListener("click", function(){
         let boxesToHighlight = [boxes[i], boxes[i+1], boxes[i+20], boxes[i+21]]
         // for the boxes within the boxesToHighlight, add them to a class where we can add highlight with css later
@@ -63,43 +65,20 @@ for (let i=0; i<boxes.length; i++){
 }
 
 
-// SECTION 4 Add images to the boxes on the grid of the droid army
-//use the variable boxes above to access the boxes on the grid 
+//Section 3 Scatter clone army and droid army on the grid
+const cloneImage = ['images/clone1.png'] 
 const droidImage = ['images/droid1.png']
-const cloneImage = ['images/clone1.png']
 
-let numOfDroids = 100 //100
 let numOfClones = 100 //100
-
+let numOfDroids = 100 //100
 
 let selectedClones = []
 let selectedDroids = []
-let count = 0
 
-// Add droids scattered randomly on the battlefield
-while (selectedDroids.length < numOfDroids){
-    let randomIndex = Math.floor(Math.random() * boxes.length)
-    let randomBox = boxes[randomIndex]
-    //for (i=0; i < numOfDroids; i++ ){
-        // if the random index that was chosen is in NOT already in the selectedDroids or selectedClones array then
-        if((!selectedDroids.includes(randomIndex)) && (!selectedClones.includes(randomIndex))){
-            // push that random index to the selected droids
-            selectedDroids.push(randomIndex)
-            // with the random boxes add a droid image to them
-            const droid = document.createElement("img")
-            droid.src = droidImage
-            randomBox.appendChild(droid)
-            count += 1
-            console.log(count)
-        }  
-   // }
-}
-
-// //add clones scattered randomly on the battle field 
+//scatter clones randomly across on the battle field 
 while (selectedClones.length < numOfClones){
-    //console.log("we reached inside ")
-    //for (i=0; i < numOfClones; i++ ){
-        let randomIndex = Math.floor(Math.random() * boxes.length)
+    // scatter most of the clones within the top 3/4 of the grid
+        let randomIndex = Math.floor(Math.random() * 300)
         let randomBox = boxes[randomIndex]
         // if the random index that was chosen is in NOT already in the selectedBoxes array then
         if((!selectedDroids.includes(randomIndex)) && (!selectedClones.includes(randomIndex))){
@@ -109,29 +88,24 @@ while (selectedClones.length < numOfClones){
             const clone = document.createElement("img")
             clone.src = cloneImage
             randomBox.appendChild(clone)
-            count +=1
-            console.log(count)
         }
-    //}
 }
 
-// add droids scattered randomly on the battlefield
-// for(let i=0; i<boxes.length/2; i++){
-//     const droid = document.createElement("img")
-//     droid.src = droidImage
-//     boxes[i].appendChild(droid)
-// }
+// Scatter droids randomly on the battlefield
+while (selectedDroids.length < numOfDroids){
+    //put more of the droids on the bottom 3/4 of the grid (between boxes (the min) 100 and (the max) 400 or (boxes.length))
+    let randomIndex = Math.floor(Math.random() * (400 - 100 + 1 ) + 100) // the plus "1" is to make sure we include the maximum value (400) in the range 
+    let randomBox = boxes[randomIndex]
+        if((!selectedDroids.includes(randomIndex)) && (!selectedClones.includes(randomIndex))){
+            // push that random index to the selected droids
+            selectedDroids.push(randomIndex)
+            // with the random boxes add a droid image to them
+            const droid = document.createElement("img")
+            droid.src = droidImage
+            randomBox.appendChild(droid)
 
-
-//USE LATER
-// SECTION 5 Add images to the boxes on the grid of the clone army 
-// const cloneImage = ['images/clone1.png']
-
-// for(let i=boxes.length/2; i<boxes.length; i++){
-//     const clone = document.createElement("img")
-//     clone.src = cloneImage
-//     boxes[i].appendChild(clone)
-// }
+        }  
+}
 
 
 // SECTION 6 just to see how we can count how many clones/droids are in the battle field
@@ -153,7 +127,7 @@ console.log(cloneArmy)
 console.log(droidArmy)
 
 
-//SECTION 7 Count how many clones or droids have been destroyed 
+//SECTION 4 Count how many clones or droids have been destroyed 
 
 // first let count how many boxes were clicked on first 
 for (let i = 0; i < boxes.length; i++) {
@@ -181,7 +155,6 @@ for (let i = 0; i < boxes.length; i++) {
                     }
                 }
             }
-            //} 
         //console log the amount of allies/enemies destroyed 
         }
         console.log("Clones Destroyed " + clonesDestroyed.innerHTML)
@@ -194,4 +167,22 @@ for (let i = 0; i < boxes.length; i++) {
 }
 
 
+//Section 5 After a hit has been made, show the location of the clone/droid destroyed
+for (let i = 0; i < boxes.length; i++) {
+    boxes[i].addEventListener("click", function(){
+        let boxesHit = [boxes[i], boxes[i+1], boxes[i+20], boxes[i+21]]
+        //for the boxes that were hit...
+        for (const boxHit of boxesHit){
+            if(boxHit){
+                //show the location of the clone/droid if they were hit
+                if(boxHit.getElementsByTagName("img").length >0){
+                    let childImages = boxHit.querySelectorAll("img")
+                    childImages.forEach(image => image.style.display = 'block')
+                }
+            }
+        }
+ 
+    })
 
+//end of the for loop
+}
