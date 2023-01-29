@@ -94,7 +94,7 @@ while (selectedClones.length < numOfClones){
 // Scatter droids randomly on the battlefield
 while (selectedDroids.length < numOfDroids){
     //put more of the droids on the bottom 3/4 of the grid (between boxes (the min) 100 and (the max) 400 or (boxes.length))
-    let randomIndex = Math.floor(Math.random() * (400 - 100 + 1 ) + 100) // the plus "1" is to make sure we include the maximum value (400) in the range 
+    let randomIndex = Math.floor(Math.random() * (400 - 100 + 1 )) + 100 // the plus "1" is to make sure we include the maximum value (400) in the range 
     let randomBox = boxes[randomIndex]
         if((!selectedDroids.includes(randomIndex)) && (!selectedClones.includes(randomIndex))){
             // push that random index to the selected droids
@@ -122,9 +122,6 @@ while (selectedDroids.length < numOfDroids){
 //         droidArmy += 1
 //     }
 // }
-
-console.log(cloneArmy)
-console.log(droidArmy)
 
 
 //SECTION 4 Count how many clones or droids have been destroyed 
