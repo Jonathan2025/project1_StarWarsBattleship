@@ -35,3 +35,17 @@
     height:80%;
     /* display:none; */
 }
+
+
+
+/* style the clone and droid icons */
+.icon{
+    width: 100px;
+    height: 100px;
+}
+
+
+/* style the tables */
+/* #player2table{
+    /* float:left; */
+/* }  

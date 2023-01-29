@@ -1,3 +1,10 @@
+// SECTION 0 - Create the Global game variables 
+let cloneArmy = 0 
+let droidArmy = 0
+let clonesDestroyed = 0
+let droidsDestroyed = 0 
+let boxesDestroyed = 0 
+
 // SECTION 1 - Create the Grid 
 const grid = document.getElementById("grid")
 
@@ -74,15 +81,13 @@ for(let i=boxes.length/2; i<boxes.length; i++){
 
 
 // SECTION 6 just to see how we can count how many clones/droids are in the battle field
-let cloneArmy = 0 
-let droidArmy = 0
 
 for (let i=0; i<boxes.length; i++){
     //access the image source of each box
     const image = boxes[i].getElementsByTagName("img")[0]
     let imageSource = image.getAttribute("src")
     if (imageSource === 'images/clone1.png'){
-        // if the box has an image of a clone, then add 1 to the clone army
+        // if the box has an image of a clone, then add 1 to the clone army (variable in section 0)
         cloneArmy += 1
         //else if its a droid then add 1 to the droid army
     } else if (imageSource === 'images/droid1.png') {
@@ -95,9 +100,6 @@ console.log(droidArmy)
 
 
 //SECTION 7 Count how many clones or droids have been destroyed 
-let clonesDestroyed = 0
-let droidsDestroyed = 0 
-let boxesDestroyed = 0 
 
 // first let count how many boxes were clicked on first 
 for (let i = 0; i < boxes.length; i++) {
@@ -111,34 +113,23 @@ for (let i = 0; i < boxes.length; i++) {
                 if (imageSource === 'images/clone1.png'){
                     // if the box has an image of a clone, then add 1 to the clone army
                     clonesDestroyed += 1
+                    cloneArmy -= 1
                 //else if its a droid then add 1 to the droid army
                 } else if (imageSource === 'images/droid1.png') {
                     droidsDestroyed += 1
+                    droidArmy -= 1
                 } 
             } 
         //console log the amount of allies/enemies destroyed 
-        }console.log(droidsDestroyed)
-        console.log(clonesDestroyed)
+        }
+        console.log("Clones Destroyed " + clonesDestroyed)
+        console.log("Clone Army " + cloneArmy)
+        console.log("Droids Destroyed " + droidsDestroyed)
+        console.log("Droid Army " + droidArmy)
     })
 
 //end of the for loop
 }
 
 
-
-// function countTroopsDestroyed(boxes){
-//         //access the div class, if it has been hit it would say "box hit-highlight"
-//         let className = boxes[i].className[1]
-//         console.log(className)
-//         if (className === "hit-hightlight"){
-//             //access the image source from above
-//             if (imageSource === 'images/clone1.png'){
-//                 clonesDestroyed += 1
-//                 console.log(clonesDestroyed)
-//             } else if (imageSource === 'images/droid1.png'){
-//                 droidsDestroyed += 1
-//                 console.log(droidsDestroyed)
-//             }
-//         }
-//     }
 
