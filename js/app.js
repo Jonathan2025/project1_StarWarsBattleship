@@ -28,8 +28,9 @@ const boxes = document.getElementsByClassName("box");
 
 
 //SECTION - Be able to drag and drop images onto the grid (Difficult Part)
-
+//using Jquery
 $(function() {
+
     $(".player1-piece").draggable({
       revert: "invalid",
       helper: "clone"
@@ -43,19 +44,92 @@ $(function() {
     });
   });
 
-$(function() {
-    $(".player2-piece").draggable({
-      revert: "invalid",
-      helper: "clone"
-    });
-    $(".box").droppable({
-      drop: function(event, ui) {
-        //$(ui.draggable).appendTo(this).fadeOut();
-        let droppedItem = $(ui.draggable)
-        $(this).append(droppedItem) 
-      }
-    });
+//Leave this, incase an actual player wants to play the game 
+//Randomize the drag and drop on the grid
+// $(function() {
+//     $(".player2-piece").draggable({
+//       revert: "invalid",
+//       helper: "clone"
+//     });
+//     $(".box").droppable({
+//       drop: function(event, ui) {
+//         //$(ui.draggable).appendTo(this).fadeOut();
+//         let droppedItem = $(ui.draggable)
+//         $(this).append(droppedItem) 
+//       }
+//     });
+//   });
+
+// --------------------------
+
+// May be able to erase this later 
+// Randomize the drag and drop for the player 2 pieces from
+// grid 3 which houses player 2's game pieces, to the main game grid
+// Define the list of images
+//let player2pieces = document.getElementsByClassName("player2-piece")
+// let images = $(".grid3 img")
+
+// // Define the list of boxes
+// // in this case we will use the boxes as defined above
+// let boxesToDrop = $(".grid .box")
+
+// // Create a random index
+// let randomIndex;
+
+// // Loop through each image
+// //images.each(function(index, image) {
+// images.each(function(index, image) {
+
+//   // Make the image draggable
+//   $(image).draggable({
+//     revert: "invalid",
+//     helper: "clone"
+//   });
+
+//   // On each iteration, get a random index from the boxes array
+//   randomIndex = Math.floor(Math.random() * boxesToDrop.length);
+
+//   // Get the box element at the random index
+//   let targetBox = $(boxesToDrop[randomIndex]);
+
+//   // Use the droppable() method to define the drop behavior
+//   targetBox.droppable({
+//     drop: function(event, ui) {
+//       let droppedItem = $(ui.draggable)
+//       $(this).append(droppedItem) 
+//     }
+//   });
+
+// });
+
+// ---------------------------------
+
+// randomize the placement of the droid chracters on the grid 
+// access the elements in the player 2 grid 
+let player2pieces = document.getElementsByClassName("player2-piece")
+console.log(player2pieces)
+
+// First create a list of random numbers (representing the indexs of the boxes the image will go into )
+let randomIndexes = []
+for (let i = 0; i < 10; i++) {
+    let randomNum = Math.floor(Math.random() * 225) + 1;
+    randomIndexes.push(randomNum)
+    console.log(randomNum);
+  } console.log(randomIndexes)
+  
+
+randomIndexes.forEach(function(index, i) {
+    let image = new Image();
+    image.src = player2pieces[i].src;
+    console.log(image.src)
+    boxes[index].appendChild(image);
   });
+
+
+
+
+
+
 
 
 // SECTION - Create the player classes 
@@ -134,14 +208,80 @@ class Player1 {
 
 
 
+//Instantiate the class
+const player1Instance = new Player1()
 
 
+console.log(player1Instance.getSide())
+console.log(player1Instance.getArmyCount())
+console.log(player1Instance.getCasualties())
+console.log(player1Instance.getHeroCount())
+console.log(player1Instance.getPoints())
+
+
+
+
+// SECTION - PLAYER 2 class 
+class Player2 extends Player1 {
+    constructor(){
+        super()
+        // the properties that we will be getting for player 2 will be slightly different than player 1
+        this.side = "Droid Army"
+        this.droidArmy = document.querySelector("#droidCount")
+        this.droidsDestroyed = document.querySelector("#droidCasualties")
+        this.villans = document.querySelector("#villanCount")
+        this.points = document.querySelector("#player2Points")
+        
+    }
+
+    // getter methods, methods that return information, these methods slightly different from player 1
+    getSide(){
+        return this.side
+    }
+
+    getArmyCount(){
+        return this.droidArmy.innerHTML
+    }
+
+    getCasualties(){
+        return this.droidsDestroyed.innerHTML
+    }
+
+    getHeroCount(){
+        return this.villans.innerHTML
+    }
+
+    getPoints(){
+        return this.points.innerHTML
+    }
+
+
+    //the other methods like targetHover and targetHit will be 
+    //extended from the player 1 class 
+
+
+
+//End of the class 
+}
+
+
+//Instantiate Class Player 2
+//Instantiate the class
+const player2Instance = new Player2()
+
+console.log("player2")
+console.log(player2Instance.getSide())
+console.log(player2Instance.getArmyCount())
+console.log(player2Instance.getCasualties())
+console.log(player2Instance.getHeroCount())
+console.log(player2Instance.getPoints())
 
 
 
 
 
 //Functions that arent inside the class ( put them outside because they belong in a main game function/object) 
+
 //SECTION - Change the player stats based on what was hit in the strike
 function changePlayerStats(boxesToHighlightPick){
     // let boxesHit = [boxes[i], boxes[i+1], boxes[i+20], boxes[i+21]]
@@ -159,17 +299,19 @@ function changePlayerStats(boxesToHighlightPick){
                     // then add 1 to the casualties and subtract 1 from the clone army
                     clonesDestroyed.innerHTML = parseInt(clonesDestroyed.innerHTML) + 1
                     cloneArmy.innerHTML = parseInt(cloneArmy.innerHTML) - 1
+
                 //else if the box has an image of a hero 
                 } else if ((imageSource === '/Images/obiwan.png')|| (imageSource === '/Images/yoda.png')){
                     // then subtract 1 from heros and add 5 to casualties(clones destroyed) heros are worth more
                     clonesDestroyed.innerHTML = parseInt(clonesDestroyed.innerHTML) + 5
                     heros.innerHTML = parseInt(heros.innerHTML) - 1
                 //else if the box has an image of a droid...
-                } else if ((imageSource === '/Images/droid1.png') || (imageSource === '/Images/droid2.png') || (imageSource === '/Images/droid3.png') || (imageSource === '/Images/droid4.png')){
+                // instead of using strict equality, we used .includes here since we couldnt seem to get the droid elements to have a relative image source
+                } else if ((imageSource.includes('/Images/droid1.png')) || (imageSource.includes('/Images/droid2.png')) || (imageSource.includes('/Images/droid3.png')) || (imageSource.includes('/Images/droid4.png'))){
                     // then add 1 to the casualties and subtract 1 from the droid army
                     droidsDestroyed.innerHTML = parseInt(droidsDestroyed.innerHTML) + 1
                     droidArmy.innerHTML = parseInt(droidArmy.innerHTML) - 1
-                } else if ((imageSource === '/Images/dooku.png') || (imageSource === '/Images/grevious.png')){
+                } else if ((imageSource.includes('/Images/dooku.png')) || (imageSource.includes('/Images/grevious.png'))){
                     // then add 5 to the casualties and subtract 1 from villans
                     droidsDestroyed.innerHTML = parseInt(droidsDestroyed.innerHTML) + 5
                     villans.innerHTML = parseInt(villans.innerHTML) - 1
@@ -199,26 +341,6 @@ function showLocation(boxesToHighlightPick){
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-//Instantiate the class
-const player1Instance = new Player1()
-
-
-console.log(player1Instance.getSide())
-console.log(player1Instance.getArmyCount())
-console.log(player1Instance.getCasualties())
-console.log(player1Instance.getHeroCount())
-console.log(player1Instance.getPoints())
 
 
 
