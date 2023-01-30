@@ -10,7 +10,9 @@
     <link href="https://fonts.cdnfonts.com/css/star-wars" rel="stylesheet">
     <style>@import url('https://fonts.cdnfonts.com/css/star-wars');</style>
     <title>Star Wars Battleship!</title>
-
+    <!-- import the jquery library  -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
 </head>
 <body>
     <h1 id="game-title"> Star Wars battleship!</h1>
@@ -24,11 +26,11 @@
         </tr>
         <tr> 
             <td> Clones </td>
-            <td id="cloneCount"></td>
+            <td id="cloneCount">10</td>
         </tr>
         <tr> 
             <td> Casualties </td>
-            <td id="cloneCasualties"></td>
+            <td id="cloneCasualties">0</td>
         </tr>
     </table>
 
@@ -41,11 +43,11 @@
         </tr>
         <tr> 
             <td> Droids </td>
-            <td id="droidCount"></td>
+            <td id="droidCount">10</td>
         </tr>
         <tr> 
             <td> Casualties </td>
-            <td id="droidCasualties"></td>
+            <td id="droidCasualties">0</td>
         </tr>
     </table>
     
@@ -53,21 +55,43 @@
 
      <!-- create the grid for player one game pieces  -->
      <div id="grid2" class="grid-container"> 
-        <img src="/Images/clone1.png" class="grid-item" draggable="true">
-       
+        <img src="/Images/clone1.png" class="player1-piece">
+        <img src="/Images/clone1.png" class="player1-piece">
+        <img src="/Images/clone1.png" class="player1-piece">
+        <img src="/Images/clone1.png" class="player1-piece">
+        <img src="/Images/clone1.png" class="player1-piece">
+        <img src="/Images/clone2.jpeg" class="player1-piece">
+        <img src="/Images/clone3.png" class="player1-piece">
+        <img src="/Images/clone4.jpeg" class="player1-piece">
+        <img src="/Images/yoda.png" class="player1-piece">
+        <img src="/Images/obiwan.jpeg" class="player1-piece">
+    
     </div>
+
     <!-- create the grid for player two game pieces  -->
     <div id="grid3" class="grid-container"> 
         <!-- the boxes will be created from app.js -->
-        <img src="/Images/droid1.png" class="grid-item" draggable="true">
+        <img src="/Images/droid4.webp" class="player2-piece">
+        <img src="/Images/droid4.webp" class="player2-piece">
+        <img src="/Images/droid4.webp" class="player2-piece">
+        <img src="/Images/droid4.webp" class="player2-piece">
+        <img src="/Images/droid4.webp" class="player2-piece">
+        <img src="/Images/droid2.jpeg" class="player2-piece">
+        <img src="/Images/droid3.png" class="player2-piece">
+        <img src="/Images/droid4.webp" class="player2-piece">
+        <img src="/Images/grevious.jpeg" class="player2-piece">
+        <img src="/Images/dooku.jpeg" class="player2-piece">
+    
     </div>
     <!-- create the main game grid -->
     <div id="grid" class="grid-container">
         <!-- we will be able to drop our game pieces here -->
         <!-- the boxes will be created by the for loop in app.js -->
     </div>
-   
+    
 
+    <!-- using canvas -->
+    <canvas id="canvas"></canvas>
 </body>
 </html>
 
