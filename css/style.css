@@ -67,6 +67,8 @@ body{
     grid-gap: 10px;
     border: 3px solid red
   }
+
+  
 /* game pieces */
 .grid-item {
     width: 50px;
@@ -74,7 +76,7 @@ body{
 }
 
 .player1-piece{
-    width: 70px;
+    width: 75px;
     height: 75px;
 }
 

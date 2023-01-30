@@ -25,33 +25,22 @@ const boxes = document.getElementsByClassName("box");
 
 //SECTION - Be able to drag and drop images onto the grid (Difficult Part)
 
-//grid 2 will house player 1's game pieces
-// Get all the images from player 1's grid
-const player1Pieces = document.querySelectorAll('.player1-piece');
-
-
-
-// $(document).ready(function(){
-
-//         $(".player1-piece").draggable({helper:"clone"})
-//         $(".box").droppable(
-
-//         {
-//             accept:".player1-piece",
-//             drop: function(ev, ui){
-
-//                 alert("alert!")
-//             }
-
-
-//         }
-
-//         )
-
-// })
-
 $(function() {
     $(".player1-piece").draggable({
+      revert: "invalid",
+      helper: "clone"
+    });
+    $(".box").droppable({
+      drop: function(event, ui) {
+        //$(ui.draggable).appendTo(this).fadeOut();
+        let droppedItem = $(ui.draggable)
+        $(this).append(droppedItem)
+      }
+    });
+  });
+
+  $(function() {
+    $(".player2-piece").draggable({
       revert: "invalid",
       helper: "clone"
     });
