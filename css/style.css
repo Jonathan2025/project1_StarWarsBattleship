@@ -65,10 +65,10 @@ body{
     grid-template-columns: repeat(10, 1fr);
     grid-template-columns;
     grid-gap: 10px;
-    border: 3px solid red
+    border: 3px solid blue
   }
 
-  
+
 /* game pieces */
 .grid-item {
     width: 50px;

@@ -1,8 +1,12 @@
 // SECTION 0 - Create the global game variables 
 let cloneArmy = document.querySelector("#cloneCount")
 let droidArmy = document.querySelector("#droidCount")
+let heros = document.querySelector("#heroCount")
+let villans = document.querySelector("#villanCount")
 let clonesDestroyed = document.querySelector("#cloneCasualties")
 let droidsDestroyed = document.querySelector("#droidCasualties")
+let player1Points = document.querySelector("#player1Points")
+let player2Points = document.querySelector("#player2Points")
 // cloneArmy.innerHTML = 10
 // droidArmy.innerHTML = 10
 // clonesDestroyed.innerHTML = 0
@@ -39,7 +43,7 @@ $(function() {
     });
   });
 
-  $(function() {
+$(function() {
     $(".player2-piece").draggable({
       revert: "invalid",
       helper: "clone"
@@ -48,15 +52,10 @@ $(function() {
       drop: function(event, ui) {
         //$(ui.draggable).appendTo(this).fadeOut();
         let droppedItem = $(ui.draggable)
-        $(this).append(droppedItem)
+        $(this).append(droppedItem) 
       }
     });
   });
-
-
-
-
-
 
 
 // SECTION - Create the player classes 
@@ -65,7 +64,32 @@ class Player1 {
         this.side = "Clone Army"
         this.cloneArmy = document.querySelector("#cloneCount")
         this.clonesDestroyed = document.querySelector("#cloneCasualties")
+        this.heros = document.querySelector("#heroCount")
+        // initialize the points as 0 for now
+        this.points = document.querySelector("#player1Points")
     }
+
+    // getter methods, methods that return information 
+    getSide(){
+        return this.side
+    }
+
+    getArmyCount(){
+        return this.cloneArmy.innerHTML
+    }
+
+    getCasualties(){
+        return this.clonesDestroyed.innerHTML
+    }
+
+    getHeroCount(){
+        return this.heros.innerHTML
+    }
+
+    getPoints(){
+        return this.points.innerHTML
+    }
+
 
     //SECTION - player methods used to highlight target and hit target
     // The user will be able to hover over a 2x2 section of the grid
@@ -111,6 +135,12 @@ class Player1 {
 
 
 
+
+
+
+
+
+
 //Functions that arent inside the class ( put them outside because they belong in a main game function/object) 
 //SECTION - Change the player stats based on what was hit in the strike
 function changePlayerStats(boxesToHighlightPick){
@@ -122,20 +152,27 @@ function changePlayerStats(boxesToHighlightPick){
             // if there is an image tag inside the box... 
             if(boxHit.getElementsByTagName("img").length >0){
                 //get the image tag's source
-                console.log(boxHit)
                 const image = boxHit.getElementsByTagName("img")[0]
                 let imageSource = image.getAttribute("src")
-                console.log(imageSource)
                 // if the box has an image of a clone,
-                if (imageSource === '/Images/clone1.png'){
+                if ((imageSource === '/Images/clone1.png')|| (imageSource === '/Images/clone2.png') || (imageSource === '/Images/clone3.png') || (imageSource === '/Images/clone4.png')){
                     // then add 1 to the casualties and subtract 1 from the clone army
                     clonesDestroyed.innerHTML = parseInt(clonesDestroyed.innerHTML) + 1
                     cloneArmy.innerHTML = parseInt(cloneArmy.innerHTML) - 1
+                //else if the box has an image of a hero 
+                } else if ((imageSource === '/Images/obiwan.png')|| (imageSource === '/Images/yoda.png')){
+                    // then subtract 1 from heros and add 5 to casualties(clones destroyed) heros are worth more
+                    clonesDestroyed.innerHTML = parseInt(clonesDestroyed.innerHTML) + 5
+                    heros.innerHTML = parseInt(heros.innerHTML) - 1
                 //else if the box has an image of a droid...
-                } else if (imageSource === '/Images/droid1.png') {
-                    // then add 1 to the casualties and subtract 1 from the clone army
+                } else if ((imageSource === '/Images/droid1.png') || (imageSource === '/Images/droid2.png') || (imageSource === '/Images/droid3.png') || (imageSource === '/Images/droid4.png')){
+                    // then add 1 to the casualties and subtract 1 from the droid army
                     droidsDestroyed.innerHTML = parseInt(droidsDestroyed.innerHTML) + 1
                     droidArmy.innerHTML = parseInt(droidArmy.innerHTML) - 1
+                } else if ((imageSource === '/Images/dooku.png') || (imageSource === '/Images/grevious.png')){
+                    // then add 5 to the casualties and subtract 1 from villans
+                    droidsDestroyed.innerHTML = parseInt(droidsDestroyed.innerHTML) + 5
+                    villans.innerHTML = parseInt(villans.innerHTML) - 1
                 }
             }
         }
@@ -177,7 +214,11 @@ function showLocation(boxesToHighlightPick){
 const player1Instance = new Player1()
 
 
-
+console.log(player1Instance.getSide())
+console.log(player1Instance.getArmyCount())
+console.log(player1Instance.getCasualties())
+console.log(player1Instance.getHeroCount())
+console.log(player1Instance.getPoints())
 
 
 
