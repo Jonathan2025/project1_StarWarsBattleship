@@ -8,8 +8,32 @@ aside{
     background-color: white;
     font-family: 'Star Wars', sans-serif;
     letter-spacing: 0.1em;
-    
 }
+
+/* style the tables */
+#player1table{
+    float: left;
+    border: 3px solid #2E67F8;
+}
+
+#player2table{
+    float: right;
+    border:3px solid red;
+}
+
+table{
+    display: inline-block;
+}
+
+/* style the buttons */
+.btn-container {
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+button {
+    padding: 10px 20px;
+  }
 
 body{
     background-image: url(/images/background.webp);
@@ -72,14 +96,17 @@ body{
 }
 
 
-/* style grids 2 which houses player1's game pieces */
+/* style the player grids which houses player1's game pieces */
 .grid-container {
     display: grid;
     grid-template-columns: repeat(10, 1fr);
-    grid-template-columns;
+   
     grid-gap: 10px;
-    border: 3px solid blue
+    border: 3px solid gray;
   }
+
+
+
 
 
 /* game pieces */

@@ -17,10 +17,11 @@
 <body>
     <h1 id="game-title"> Star Wars battleship!</h1>
     <!-- buttons -->
-    <input type="button" id="start" value="Start Game">
-    <input type="button" id="instructionsBtn" value="instructions">
-    <input type="button" id="restartBtn" value="A New Hope">
-    
+    <div class="btn-container">
+        <input type="button" id="start" value="Start Game">
+        <input type="button" id="instructionsBtn" value="instructions">
+        <input type="button" id="restartBtn" value="A New Hope">
+    </div>
      <!-- section for the instructions -->
      <aside>
         <section class="instructions">
@@ -91,7 +92,7 @@
 
 
      <!-- create the grid for player one game pieces  -->
-     <div id="grid2" class="grid-container"> 
+     <div id="grid2" class="grid-container" id="player1Grid"> 
         <img src="/Images/clone1.png" class="player1-piece">
         <img src="/Images/clone1.png" class="player1-piece">
         <img src="/Images/clone1.png" class="player1-piece">
@@ -106,7 +107,7 @@
     </div>
 
     <!-- create the grid for player two game pieces  -->
-    <div id="grid3" class="grid-container"> 
+    <div id="grid3" class="grid-container" id="player2Grid"> 
         <!-- the boxes will be created from app.js -->
         <img src="/Images/droid1.png" class="player2-piece">
         <img src="/Images/droid1.png" class="player2-piece">
