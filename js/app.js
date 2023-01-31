@@ -1,4 +1,26 @@
-// SECTION 0 - Create the global game variables 
+// SECTION  Instructions for the Game
+// When we click on the instructions button, it will show the instructions
+let instructions = document.querySelector("#instructionsBtn")
+function instructionsClick () {
+    let instructionsModule = document.getElementsByTagName("aside")
+    instructionsModule[0].style.display = "block"
+}
+instructions.addEventListener("click", instructionsClick)
+
+// when we out of it, it will remove the instructions from the screen 
+let xout = document.querySelector("#closeInstructions")
+function instructionsClose () {
+    let instructionsModule = document.getElementsByTagName("aside")
+    instructionsModule[0].style.display = "none"
+}
+xout.addEventListener("click", instructionsClose)
+
+
+
+//----------------------------------------------------------------------
+
+
+// SECTION  - Create the global game variables 
 let cloneArmy = document.querySelector("#cloneCount")
 let droidArmy = document.querySelector("#droidCount")
 let heros = document.querySelector("#heroCount")
@@ -7,10 +29,8 @@ let clonesDestroyed = document.querySelector("#cloneCasualties")
 let droidsDestroyed = document.querySelector("#droidCasualties")
 let player1Points = document.querySelector("#player1Points")
 let player2Points = document.querySelector("#player2Points")
-// cloneArmy.innerHTML = 10
-// droidArmy.innerHTML = 10
-// clonesDestroyed.innerHTML = 0
-// droidsDestroyed.innerHTML = 0 
+const startBtn = document.querySelector("#start")
+
 
 // SECTION 1 - Create the game grid 
 const grid = document.querySelector('#grid');
@@ -27,104 +47,54 @@ const grid = document.querySelector('#grid');
 const boxes = document.getElementsByClassName("box");
 
 
-//SECTION - Be able to drag and drop images onto the grid (Difficult Part)
-//using Jquery
-$(function() {
 
-    $(".player1-piece").draggable({
-      revert: "invalid",
-      helper: "clone"
-    });
-    $(".box").droppable({
-      drop: function(event, ui) {
-        //$(ui.draggable).appendTo(this).fadeOut();
-        let droppedItem = $(ui.draggable)
-        $(this).append(droppedItem)
-      }
-    });
-  });
 
-//Leave this, incase an actual player wants to play the game 
-//Randomize the drag and drop on the grid
-// $(function() {
-//     $(".player2-piece").draggable({
-//       revert: "invalid",
-//       helper: "clone"
-//     });
-//     $(".box").droppable({
-//       drop: function(event, ui) {
-//         //$(ui.draggable).appendTo(this).fadeOut();
-//         let droppedItem = $(ui.draggable)
-//         $(this).append(droppedItem) 
-//       }
-//     });
-//   });
 
-// --------------------------
 
-// May be able to erase this later 
-// Randomize the drag and drop for the player 2 pieces from
-// grid 3 which houses player 2's game pieces, to the main game grid
-// Define the list of images
-//let player2pieces = document.getElementsByClassName("player2-piece")
-// let images = $(".grid3 img")
+// SECTION - randomize the placement of the droid chracters on the grid 
+function randomizeGamePieces(){
+    let player1pieces = document.getElementsByClassName("player1-piece")
+    let player2pieces = document.getElementsByClassName("player2-piece")
 
-// // Define the list of boxes
-// // in this case we will use the boxes as defined above
-// let boxesToDrop = $(".grid .box")
+    // First create a list of random numbers (representing the indexs of the boxes the image will go into )
+    let randomPlayer1Indexes = []
+    let randomPlayer2Indexes = []
+    while (randomPlayer1Indexes.length < 10) {
+        let randomNum = Math.floor(Math.random() * 225) + 1
+        console.log("in the while loop")
+        // if the random is not already chosen, then add it to the array
+        if ((!randomPlayer1Indexes.includes(randomNum)) && (!randomPlayer2Indexes.includes(randomNum))){
+            randomPlayer1Indexes.push(randomNum)
+            console.log(randomNum);
+        }
+    } console.log(randomPlayer1Indexes)
 
-// // Create a random index
-// let randomIndex;
+    while (randomPlayer2Indexes.length < 10) {
+        let randomNum = Math.floor(Math.random() * 225) + 1;
+        // if the random is not already chosen, then add it to the array
+        if ((!randomPlayer1Indexes.includes(randomNum)) && (!randomPlayer2Indexes.includes(randomNum))){
+            randomPlayer2Indexes.push(randomNum)
+            console.log(randomNum);
+        }
+    } console.log(randomPlayer2Indexes)
+    
+    randomPlayer1Indexes.forEach(function(index, i) {
+        let image = new Image();
+        // set the new image source to the image source of the droids 
+        image.src = player1pieces[i].src
+        console.log(image.src)
+        boxes[index].appendChild(image)
+    })
 
-// // Loop through each image
-// //images.each(function(index, image) {
-// images.each(function(index, image) {
 
-//   // Make the image draggable
-//   $(image).draggable({
-//     revert: "invalid",
-//     helper: "clone"
-//   });
-
-//   // On each iteration, get a random index from the boxes array
-//   randomIndex = Math.floor(Math.random() * boxesToDrop.length);
-
-//   // Get the box element at the random index
-//   let targetBox = $(boxesToDrop[randomIndex]);
-
-//   // Use the droppable() method to define the drop behavior
-//   targetBox.droppable({
-//     drop: function(event, ui) {
-//       let droppedItem = $(ui.draggable)
-//       $(this).append(droppedItem) 
-//     }
-//   });
-
-// });
-
-// ---------------------------------
-
-// randomize the placement of the droid chracters on the grid 
-// access the elements in the player 2 grid 
-let player2pieces = document.getElementsByClassName("player2-piece")
-console.log(player2pieces)
-
-// First create a list of random numbers (representing the indexs of the boxes the image will go into )
-let randomIndexes = []
-for (let i = 0; i < 10; i++) {
-    let randomNum = Math.floor(Math.random() * 225) + 1;
-    randomIndexes.push(randomNum)
-    console.log(randomNum);
-  } console.log(randomIndexes)
-  
-
-randomIndexes.forEach(function(index, i) {
-    let image = new Image();
-    image.src = player2pieces[i].src;
-    console.log(image.src)
-    boxes[index].appendChild(image);
-  });
-
+    randomPlayer2Indexes.forEach(function(index, i) {
+        let image = new Image();
+        // set the new image source to the image source of the droids 
+        image.src = player2pieces[i].src
+        console.log(image.src)
+        boxes[index].appendChild(image)
+    })
+}
 
 
 
@@ -345,27 +315,109 @@ function showLocation(boxesToHighlightPick){
 
 
 
-// SECTION - when the user HOVERS over an area, that area will highlight
-// When they click on an area, it will show a hit marker
+// SECTION - for loop 
 
-for (let i=0; i<boxes.length; i++){
-    let boxesToHighlightPick = [boxes[i], boxes[i+1], boxes[i+15], boxes[i+16]]
+
+
+// for (let i=0; i<boxes.length; i++){
+//     let boxesToHighlightPick = [boxes[i], boxes[i+1], boxes[i+15], boxes[i+16]]
    //EVENT LISTENERS (using a parameter of boxesToHighlightPick)
    // need to insert our function into anonymous functions
-    boxes[i].addEventListener("mouseover", function(){
-        player1Instance.targetHover(boxesToHighlightPick)
-    })
-    boxes[i].addEventListener("mouseout", function(){
-        player1Instance.targetOutHover(boxesToHighlightPick)
-    })
-    boxes[i].addEventListener("click", function(){
-        player1Instance.targetHit(boxesToHighlightPick)
-    })
-    boxes[i].addEventListener("click", function (){
-        showLocation(boxesToHighlightPick)
-    })
-    boxes[i].addEventListener("click",function(){
-        changePlayerStats(boxesToHighlightPick)
-    })
-//end of the for loop    
+    // boxes[i].addEventListener("mouseover", function(){
+    //     player1Instance.targetHover(boxesToHighlightPick)
+    // })
+    // boxes[i].addEventListener("mouseout", function(){
+    //     player1Instance.targetOutHover(boxesToHighlightPick)
+    // })
+    // boxes[i].addEventListener("click", function(){
+    //     player1Instance.targetHit(boxesToHighlightPick)
+    // })
+    // boxes[i].addEventListener("click", function (){
+    //     showLocation(boxesToHighlightPick)
+    // })
+    // boxes[i].addEventListener("click",function(){
+    //     changePlayerStats(boxesToHighlightPick)
+    // })
+
+    let currentUser =1
+    // refer to boxes above
+
+
+function player1Click(event){
+    const boxes = document.getElementsByClassName("box")
+    console.log("player 1's turn!")
+    for (let i=0; i<boxes.length; i++){
+        let boxesToHighlightPick = [boxes[i], boxes[i+1], boxes[i+15], boxes[i+16]]
+       
+        boxes[i].addEventListener("mouseover", function(){
+            player1Instance.targetHover(boxesToHighlightPick)
+        })
+        boxes[i].addEventListener("mouseout", function(){
+            player1Instance.targetOutHover(boxesToHighlightPick)
+        })
+        boxes[i].addEventListener("click", function(){
+            player1Instance.targetHit(boxesToHighlightPick)
+        })
+        boxes[i].addEventListener("click", function (){
+            showLocation(boxesToHighlightPick)
+        })
+        boxes[i].addEventListener("click",function(){
+            changePlayerStats(boxesToHighlightPick)
+        })
+
+        // code to switch the player turn to player 2 
+        currentUser = 2;
+        boxes[i].removeEventListener("click", player1Click);
+        boxes[i].addEventListener("click", player2Click)
+    }
+
+        
+//end of player1click function 
 }
+
+function player2Click(event) {
+    const boxes = document.getElementsByClassName("box");
+    console.log("player 2 turn !")
+    for (let i=0; i<boxes.length; i++){
+        let boxesToHighlightPick = [boxes[i], boxes[i+1], boxes[i+15], boxes[i+16]]
+        boxes[i].addEventListener("mouseover", function(){
+            player2Instance.targetHover(boxesToHighlightPick)
+        })
+        boxes[i].addEventListener("mouseout", function(){
+            player2Instance.targetOutHover(boxesToHighlightPick)
+        })
+        boxes[i].addEventListener("click", function(){
+            player2Instance.targetHit(boxesToHighlightPick)
+        })
+        boxes[i].addEventListener("click", function (){
+            showLocation(boxesToHighlightPick)
+        })
+        boxes[i].addEventListener("click",function(){
+            changePlayerStats(boxesToHighlightPick)
+        })
+        
+        // code for player 2's click
+        currentUser = 1;
+        boxes[i].removeEventListener("click", player2Click);
+        boxes[i].addEventListener("click", player1Click);
+
+        }
+        
+      
+    }
+
+//start the game 
+// .addEventListener("click", player1Click);
+
+
+//end of player2 click function    
+// }
+
+
+// when the player starts the game randomize the board pieces 
+startBtn.addEventListener("click", function(){
+    player1Click()
+    randomizeGamePieces(),
+    startBtn.disabled = true
+})
+// disable the start button once it is clicked on 
