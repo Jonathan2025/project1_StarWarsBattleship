@@ -16,10 +16,6 @@ function instructionsClose () {
 xout.addEventListener("click", instructionsClose)
 
 
-
-//----------------------------------------------------------------------
-
-
 // SECTION  - Create the global game variables 
 let cloneArmy = document.querySelector("#cloneCount")
 let droidArmy = document.querySelector("#droidCount")
@@ -30,6 +26,11 @@ let droidsDestroyed = document.querySelector("#droidCasualties")
 let player1Points = document.querySelector("#player1Points")
 let player2Points = document.querySelector("#player2Points")
 const startBtn = document.querySelector("#start")
+let player1pieces = document.getElementsByClassName("player1-piece")
+let player2pieces = document.getElementsByClassName("player2-piece")
+let randomPlayer1Indexes = []
+let randomPlayer2Indexes = []
+let playerTurn = document.querySelector("#playerTurn")
 
 
 // SECTION 1 - Create the game grid 
@@ -47,37 +48,19 @@ const grid = document.querySelector('#grid');
 const boxes = document.getElementsByClassName("box");
 
 
-
-
-
-
-// SECTION - randomize the placement of the droid chracters on the grid 
-function randomizeGamePieces(){
-    let player1pieces = document.getElementsByClassName("player1-piece")
-    let player2pieces = document.getElementsByClassName("player2-piece")
-
-    // First create a list of random numbers (representing the indexs of the boxes the image will go into )
-    let randomPlayer1Indexes = []
-    let randomPlayer2Indexes = []
+// create random indexes in which to add player 1 pieces to the grid 
+function randomizePlayer1Pieces(randomPlayer1Indexes, randomPlayer2Indexes){
     while (randomPlayer1Indexes.length < 10) {
         let randomNum = Math.floor(Math.random() * 225) + 1
-        console.log("in the while loop")
         // if the random is not already chosen, then add it to the array
         if ((!randomPlayer1Indexes.includes(randomNum)) && (!randomPlayer2Indexes.includes(randomNum))){
             randomPlayer1Indexes.push(randomNum)
-            console.log(randomNum);
         }
-    } console.log(randomPlayer1Indexes)
+    } 
+}
 
-    while (randomPlayer2Indexes.length < 10) {
-        let randomNum = Math.floor(Math.random() * 225) + 1;
-        // if the random is not already chosen, then add it to the array
-        if ((!randomPlayer1Indexes.includes(randomNum)) && (!randomPlayer2Indexes.includes(randomNum))){
-            randomPlayer2Indexes.push(randomNum)
-            console.log(randomNum);
-        }
-    } console.log(randomPlayer2Indexes)
-    
+// Add player 1 pieces to the grid
+function addPlayer1PiecestoGrid(boxes, randomPlayer1Indexes, player1pieces){
     randomPlayer1Indexes.forEach(function(index, i) {
         let image = new Image();
         // set the new image source to the image source of the droids 
@@ -85,8 +68,21 @@ function randomizeGamePieces(){
         console.log(image.src)
         boxes[index].appendChild(image)
     })
+}
 
+// create random indexes in which to add player 2 pieces to the grid 
+function randomizePlayer2Pieces(randomPlayer1Indexes, randomPlayer2Indexes) {
+    while (randomPlayer2Indexes.length < 10) {
+        let randomNum = Math.floor(Math.random() * 225) + 1;
+        // if the random is not already chosen, then add it to the array
+        if ((!randomPlayer1Indexes.includes(randomNum)) && (!randomPlayer2Indexes.includes(randomNum))){
+            randomPlayer2Indexes.push(randomNum)
+        }
+    }
+}
 
+// Add player 2 pieces to the grid 
+function addPlayer2PiecestoGrid (boxes,randomPlayer2Indexes, player2pieces) {
     randomPlayer2Indexes.forEach(function(index, i) {
         let image = new Image();
         // set the new image source to the image source of the droids 
@@ -95,11 +91,6 @@ function randomizeGamePieces(){
         boxes[index].appendChild(image)
     })
 }
-
-
-
-
-
 
 
 // SECTION - Create the player classes 
@@ -178,20 +169,7 @@ class Player1 {
 
 
 
-//Instantiate the class
-const player1Instance = new Player1()
-
-
-console.log(player1Instance.getSide())
-console.log(player1Instance.getArmyCount())
-console.log(player1Instance.getCasualties())
-console.log(player1Instance.getHeroCount())
-console.log(player1Instance.getPoints())
-
-
-
-
-// SECTION - PLAYER 2 class 
+// SECTION - PLAYER 2 class creation 
 class Player2 extends Player1 {
     constructor(){
         super()
@@ -200,7 +178,7 @@ class Player2 extends Player1 {
         this.droidArmy = document.querySelector("#droidCount")
         this.droidsDestroyed = document.querySelector("#droidCasualties")
         this.villans = document.querySelector("#villanCount")
-        this.points = document.querySelector("#player2Points")
+        //this.points = document.querySelector("#player2Points")
         
     }
 
@@ -221,9 +199,9 @@ class Player2 extends Player1 {
         return this.villans.innerHTML
     }
 
-    getPoints(){
-        return this.points.innerHTML
-    }
+    // getPoints(){
+    //     return this.points.innerHTML
+    // }
 
 
     //the other methods like targetHover and targetHit will be 
@@ -234,24 +212,14 @@ class Player2 extends Player1 {
 //End of the class 
 }
 
-
+//Instantiate the player 1 class
+const player1Instance = new Player1()
 //Instantiate Class Player 2
-//Instantiate the class
 const player2Instance = new Player2()
 
-console.log("player2")
-console.log(player2Instance.getSide())
-console.log(player2Instance.getArmyCount())
-console.log(player2Instance.getCasualties())
-console.log(player2Instance.getHeroCount())
-console.log(player2Instance.getPoints())
 
 
-
-
-
-//Functions that arent inside the class ( put them outside because they belong in a main game function/object) 
-
+//Functions that arent inside the class (put them outside because they belong in a main game function/object) 
 //SECTION - Change the player stats based on what was hit in the strike
 function changePlayerStats(boxesToHighlightPick){
     // let boxesHit = [boxes[i], boxes[i+1], boxes[i+20], boxes[i+21]]
@@ -265,18 +233,16 @@ function changePlayerStats(boxesToHighlightPick){
                 const image = boxHit.getElementsByTagName("img")[0]
                 let imageSource = image.getAttribute("src")
                 // if the box has an image of a clone,
-                if ((imageSource === '/Images/clone1.png')|| (imageSource === '/Images/clone2.png') || (imageSource === '/Images/clone3.png') || (imageSource === '/Images/clone4.png')){
+                if ((imageSource.includes('/Images/clone1.png'))|| (imageSource.includes('/Images/clone2.png')) || (imageSource.includes('/Images/clone3.png')) || (imageSource.includes('/Images/clone4.png'))){
                     // then add 1 to the casualties and subtract 1 from the clone army
                     clonesDestroyed.innerHTML = parseInt(clonesDestroyed.innerHTML) + 1
                     cloneArmy.innerHTML = parseInt(cloneArmy.innerHTML) - 1
-
                 //else if the box has an image of a hero 
-                } else if ((imageSource === '/Images/obiwan.png')|| (imageSource === '/Images/yoda.png')){
+                } else if ((imageSource.includes('/Images/obiwan.png'))|| (imageSource.includes('/Images/yoda.png'))){
                     // then subtract 1 from heros and add 5 to casualties(clones destroyed) heros are worth more
                     clonesDestroyed.innerHTML = parseInt(clonesDestroyed.innerHTML) + 5
                     heros.innerHTML = parseInt(heros.innerHTML) - 1
                 //else if the box has an image of a droid...
-                // instead of using strict equality, we used .includes here since we couldnt seem to get the droid elements to have a relative image source
                 } else if ((imageSource.includes('/Images/droid1.png')) || (imageSource.includes('/Images/droid2.png')) || (imageSource.includes('/Images/droid3.png')) || (imageSource.includes('/Images/droid4.png'))){
                     // then add 1 to the casualties and subtract 1 from the droid army
                     droidsDestroyed.innerHTML = parseInt(droidsDestroyed.innerHTML) + 1
@@ -288,15 +254,11 @@ function changePlayerStats(boxesToHighlightPick){
                 }
             }
         }
-    //console log the amount of allies/enemies destroyed 
     }
-        console.log("Clones Destroyed " + clonesDestroyed.innerHTML)
-        console.log("Clone Army " + cloneArmy.innerHTML)
-        console.log("Droids Destroyed " + droidsDestroyed.innerHTML)
-        console.log("Droid Army " + droidArmy.innerHTML)
+//End of function changePlayerStatus
 }
 
-//Section After a hit has been made, show the location of the clone/droid destroyed
+//Section - After a hit has been made, show the location of the clone/droid destroyed
 function showLocation(boxesToHighlightPick){
     //let boxesHit = [boxes[i], boxes[i+1], boxes[i+20], boxes[i+21]]
     let boxesHit = boxesToHighlightPick
@@ -307,45 +269,54 @@ function showLocation(boxesToHighlightPick){
             if(boxHit.getElementsByTagName("img").length >0){
                 let childImages = boxHit.querySelectorAll("img")
                 childImages.forEach(image => image.style.display = 'block')
+
+
+                //play lego break sound
+                playSound()
+                
             }
         }
     }
 }
 
 
+//function play lego breaking sound 
+
+function playSound() {
+    const audio = new Audio("Images/lego-breaking.mp3");
+    audio.play();
+  }
 
 
-// SECTION - for loop 
+//----------------------------------------------------
+//Below Section will start and run the game 
+
+
+// SECTION - START BUTTON will initiate the game and randomize the game pieces 
+// when the player starts the game randomize the board pieces 
+startBtn.addEventListener("click", function(){
+    player1Click(playerTurn)
+    randomizePlayer1Pieces(randomPlayer1Indexes, randomPlayer2Indexes)
+    addPlayer1PiecestoGrid(boxes, randomPlayer1Indexes, player1pieces)
+    randomizePlayer2Pieces(randomPlayer1Indexes, randomPlayer2Indexes)
+    addPlayer2PiecestoGrid (boxes,randomPlayer2Indexes, player2pieces)
+    // disable the start button once it is clicked on 
+    startBtn.disabled = true
+})
 
 
 
-// for (let i=0; i<boxes.length; i++){
-//     let boxesToHighlightPick = [boxes[i], boxes[i+1], boxes[i+15], boxes[i+16]]
-   //EVENT LISTENERS (using a parameter of boxesToHighlightPick)
-   // need to insert our function into anonymous functions
-    // boxes[i].addEventListener("mouseover", function(){
-    //     player1Instance.targetHover(boxesToHighlightPick)
-    // })
-    // boxes[i].addEventListener("mouseout", function(){
-    //     player1Instance.targetOutHover(boxesToHighlightPick)
-    // })
-    // boxes[i].addEventListener("click", function(){
-    //     player1Instance.targetHit(boxesToHighlightPick)
-    // })
-    // boxes[i].addEventListener("click", function (){
-    //     showLocation(boxesToHighlightPick)
-    // })
-    // boxes[i].addEventListener("click",function(){
-    //     changePlayerStats(boxesToHighlightPick)
-    // })
-
-    let currentUser =1
-    // refer to boxes above
-
+// SECTION - Switch turns between players
+let currentUser =1
+// refer to boxes above
 
 function player1Click(event){
+    
+    let playerTurn = document.querySelector("#playerTurn")
+    playerTurn.innerHTML = "Player 1's Turn!"
     const boxes = document.getElementsByClassName("box")
     console.log("player 1's turn!")
+    playerTurn.innerHTML = "Player's 1 Turn!"
     for (let i=0; i<boxes.length; i++){
         let boxesToHighlightPick = [boxes[i], boxes[i+1], boxes[i+15], boxes[i+16]]
        
@@ -358,24 +329,19 @@ function player1Click(event){
         boxes[i].addEventListener("click", function(){
             player1Instance.targetHit(boxesToHighlightPick)
         })
-        boxes[i].addEventListener("click", function (){
-            showLocation(boxesToHighlightPick)
-        })
-        boxes[i].addEventListener("click",function(){
-            changePlayerStats(boxesToHighlightPick)
-        })
-
-        // code to switch the player turn to player 2 
+        // this part of the code will switch to player 2's turn once player 1 clicks on the grid
         currentUser = 2;
         boxes[i].removeEventListener("click", player1Click);
         boxes[i].addEventListener("click", player2Click)
     }
 
-        
 //end of player1click function 
 }
 
 function player2Click(event) {
+
+    let playerTurn = document.querySelector("#playerTurn")
+    playerTurn.innerHTML = "Player 2's Turn!"
     const boxes = document.getElementsByClassName("box");
     console.log("player 2 turn !")
     for (let i=0; i<boxes.length; i++){
@@ -389,35 +355,51 @@ function player2Click(event) {
         boxes[i].addEventListener("click", function(){
             player2Instance.targetHit(boxesToHighlightPick)
         })
-        boxes[i].addEventListener("click", function (){
-            showLocation(boxesToHighlightPick)
-        })
-        boxes[i].addEventListener("click",function(){
-            changePlayerStats(boxesToHighlightPick)
-        })
-        
-        // code for player 2's click
+
+        // this part of the code will switch to player 1's turn once player 1 clicks on the grid
         currentUser = 1;
         boxes[i].removeEventListener("click", player2Click);
         boxes[i].addEventListener("click", player1Click);
 
         }
         
-      
     }
 
-//start the game 
-// .addEventListener("click", player1Click);
+// add an event listener for all the boxes on the grid 
+for (let i=0; i<boxes.length; i++){
+    let boxesToHighlightPick = [boxes[i], boxes[i+1], boxes[i+15], boxes[i+16]]
+    boxes[i].addEventListener("click", function (){
+        showLocation(boxesToHighlightPick)
+    })
+    boxes[i].addEventListener("click",function(){
+        changePlayerStats(boxesToHighlightPick)
+    })
+}
 
 
-//end of player2 click function    
+
+
+// // SECTION Decide who wins the game 
+// function endGame(){
+//     console.log(player1Instance.getCasualties)
+//     console.log(player2Instance.getCasualties)
 // }
 
+// endGame()
 
-// when the player starts the game randomize the board pieces 
-startBtn.addEventListener("click", function(){
-    player1Click()
-    randomizeGamePieces(),
-    startBtn.disabled = true
-})
-// disable the start button once it is clicked on 
+// Decide who wins the game. The player who suffers the most casualties
+// AKA the player who's casualties hit 0 loses and the other player wins 
+
+
+
+
+if (player1Instance.getCasualties() > 5){
+    console.log("player 2 wins!!!!!")
+    alert("player2 wins")
+} else if (player2Instance.getCasualties() > 5){
+    alert("player1 wins")
+    console.log("player 1 wins!!!!")
+}
+
+
+// write a function that keeps calling 

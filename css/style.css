@@ -43,6 +43,11 @@ body{
     
 }
 
+#playerTurn{
+    font-family: 'Star Wars', sans-serif;
+    text-align: center;
+}
+
 
 #game-title{
     font-family: 'Star Wars', sans-serif;
@@ -56,6 +61,7 @@ body{
     grid-template-columns: repeat(15, 1fr);
     grid-template-rows: repeat(15, 1fr);
     grid-gap: 10px;
+    
 }
 
 /* the boxes that were created for the grid in javascript */
@@ -79,7 +85,7 @@ body{
 .box img{
     width:50%;
     height:80%;
-    display:block;
+    display:none;
 }
 
 
@@ -93,6 +99,7 @@ body{
 /* style the tables */
 .table{
     border: 2px solid black;
+    
 }
 
 
@@ -113,14 +120,31 @@ body{
 .grid-item {
     width: 50px;
     height: 50px;
+    
 }
 
 .player1-piece{
     width: 75px;
     height: 75px;
+    
 }
 
 .player2-piece{
     width: 70px;
     height: 75px;
+    
+}
+
+
+/* style the buttons */
+/* style the buttons  */
+input[type="button"]{
+    border-radius: 44px;
+    background: #f8d31b;
+    box-shadow:  -37px -37px 82px #ceaf16,
+             37px 37px 82px #fff720;
+    font-family: 'Star Wars', sans-serif;
+    font-size: 15px;
+    letter-spacing: 0.2em;
+
 }

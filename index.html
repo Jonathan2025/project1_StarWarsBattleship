@@ -13,9 +13,14 @@
     <!-- import the jquery library  -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+
+    <!-- this is to prevent the 404 error we encountered with our images -->
+    <link rel="shortcut icon" href="#">
+
 </head>
 <body>
     <h1 id="game-title"> Star Wars battleship!</h1>
+    <h2 id="playerTurn"></h2>
     <!-- buttons -->
     <div class="btn-container">
         <input type="button" id="start" value="Start Game">
@@ -49,17 +54,17 @@
             <td id="cloneCount">8</td>
         </tr>
         <tr> 
-            <td> Casualties </td>
+            <td> Points </td>
             <td id="cloneCasualties">0</td>
         </tr>
         <tr> 
             <td> Heros </td>
             <td id="heroCount">2</td>
         </tr>
-        <tr> 
+        <!-- <tr> 
             <td> Points </td>
             <td id="player1Points">0</td>
-        </tr>
+        </tr> -->
 
     </table>
 
@@ -75,21 +80,21 @@
             <td id="droidCount">8</td>
         </tr>
         <tr> 
-            <td> Casualties </td>
+            <td> Points </td>
             <td id="droidCasualties">0</td>
         </tr>
         <tr> 
             <td> Villans </td>
             <td id="villanCount">2</td>
         </tr>
-        <tr> 
+        <!-- <tr> 
             <td> Points </td>
             <td id="player2Points">0</td>
-        </tr>
+        </tr> -->
 
     </table>
     
-
+    <!-- <audio id="lego-break" src="Images/lego-breaking.mp3"></audio> -->
 
      <!-- create the grid for player one game pieces  -->
      <div id="grid2" class="grid-container" id="player1Grid"> 
