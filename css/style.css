@@ -168,9 +168,22 @@ input[type="button"]{
 
 
 /* style the atte tank background */
-#atte{
+/* #atte{
    height: 500px; 
    width: 500px;
    margin: 10px 10px 0px 800px;
    border: solid red
+} */
+
+
+/* style the header */
+
+
+
+header{
+    background: url("/Images/atte.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    /* height: 300px; */
 }
+
