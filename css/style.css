@@ -10,6 +10,19 @@ aside{
     letter-spacing: 0.1em;
 }
 
+/* style the lego logo */
+#lego{
+    height:25%;
+    width: 25%;
+}
+
+/* style the description */
+.description{
+    padding-left: 1%;
+    font-family: sans-serif;
+    color: whitesmoke;
+}
+
 /* style the tables */
 #player1table{
     float: left;

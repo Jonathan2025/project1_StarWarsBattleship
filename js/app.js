@@ -313,10 +313,10 @@ let currentUser =1
 function player1Click(event){
     
     let playerTurn = document.querySelector("#playerTurn")
-    playerTurn.innerHTML = "Player 1's Turn!"
+    playerTurn.innerHTML = "Player one's turn!"
     const boxes = document.getElementsByClassName("box")
     console.log("player 1's turn!")
-    playerTurn.innerHTML = "Player's 1 Turn!"
+    
     for (let i=0; i<boxes.length; i++){
         let boxesToHighlightPick = [boxes[i], boxes[i+1], boxes[i+15], boxes[i+16]]
        
@@ -341,7 +341,7 @@ function player1Click(event){
 function player2Click(event) {
 
     let playerTurn = document.querySelector("#playerTurn")
-    playerTurn.innerHTML = "Player 2's Turn!"
+    playerTurn.innerHTML = "Player two's turn!"
     const boxes = document.getElementsByClassName("box");
     console.log("player 2 turn !")
     for (let i=0; i<boxes.length; i++){
@@ -378,21 +378,8 @@ for (let i=0; i<boxes.length; i++){
 
 
 
-
-// // SECTION Decide who wins the game 
-// function endGame(){
-//     console.log(player1Instance.getCasualties)
-//     console.log(player2Instance.getCasualties)
-// }
-
-// endGame()
-
-// Decide who wins the game. The player who suffers the most casualties
-// AKA the player who's casualties hit 0 loses and the other player wins 
-
-
-
-
+//Start here 
+// Decide who wins the game 
 if (player1Instance.getCasualties() > 5){
     console.log("player 2 wins!!!!!")
     alert("player2 wins")
