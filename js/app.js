@@ -376,7 +376,7 @@ for (let i=0; i<boxes.length; i++){
         console.log(player2Instance.getPoints())
 
 
-        //else if statment that decides who wins and who loses 
+        //When one of the player gets the max points (18 points), they win the game
         if (player1Instance.getPoints() >= 18 ){
             console.log("player 1 wins!!!!!")
             alert("player2 wins")
