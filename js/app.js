@@ -224,6 +224,10 @@ function changePlayerStats(boxesToHighlightPick){
                 //get the image tag's source
                 const image = boxHit.getElementsByTagName("img")[0]
                 let imageSource = image.getAttribute("src")
+                console.log(imageSource) //http://127.0.0.1:5500/Images/dooku.png
+                // let shortenedSource = imageSource.split("http://127.0.0.1:5500")[1]
+                let shortenedSource = imageSource.substring(imageSource.indexOf("/Images"));
+                console.log(shortenedSource)
                 // if the box has an image of a clone,
                 if ((imageSource.includes('/Images/clone1.png'))|| (imageSource.includes('/Images/clone2.png')) || (imageSource.includes('/Images/clone3.png')) || (imageSource.includes('/Images/clone4.png'))){
                     // then add 1 to player 2's points and subtract 1 from the clone army (player 1)
@@ -330,7 +334,7 @@ function player1Click(event){
         })
         // this part of the code will switch to player 2's turn once player 1 clicks on the grid
         currentUser = 2;
-        boxes[i].removeEventListener("click", player1Click);
+        boxes[i].removeEventListener("click", player1Click)
         boxes[i].addEventListener("click", player2Click)
     }
 
@@ -359,10 +363,17 @@ function player2Click(event) {
         currentUser = 1;
         boxes[i].removeEventListener("click", player2Click);
         boxes[i].addEventListener("click", player1Click);
-
+        
         }
 //end of player 2 click
     }
+
+
+  
+
+
+
+
 
 
 //SECTION MAIN GAME FUNCTIONALITY
