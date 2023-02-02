@@ -224,10 +224,6 @@ function changePlayerStats(boxesToHighlightPick){
                 //get the image tag's source
                 const image = boxHit.getElementsByTagName("img")[0]
                 let imageSource = image.getAttribute("src")
-                console.log(imageSource) //http://127.0.0.1:5500/Images/dooku.png
-                // let shortenedSource = imageSource.split("http://127.0.0.1:5500")[1]
-                let shortenedSource = imageSource.substring(imageSource.indexOf("/Images"));
-                console.log(shortenedSource)
                 // if the box has an image of a clone,
                 if ((imageSource.includes('/Images/clone1.png'))|| (imageSource.includes('/Images/clone2.png')) || (imageSource.includes('/Images/clone3.png')) || (imageSource.includes('/Images/clone4.png'))){
                     // then add 1 to player 2's points and subtract 1 from the clone army (player 1)
@@ -272,6 +268,36 @@ function showLocation(boxesToHighlightPick){
         }
     }
 }
+
+// function that removes the character from the player grid if they have been destroyed 
+function removeCharacter(boxesToHighlightPick){
+    // query selector on the grids which house the player pieces
+    let charactersContainer = document.getElementsByClassName("characters-container")
+    // let boxesHit = [boxes[i], boxes[i+1], boxes[i+20], boxes[i+21]]
+    let boxesHit = boxesToHighlightPick
+    //for the boxes that were hit...
+    for (const boxHit of boxesHit){
+        if(boxHit){
+            // if there is an image tag inside the box... 
+            if(boxHit.getElementsByTagName("img").length >0){
+                //get the image tag's source
+                const image = boxHit.getElementsByTagName("img")[0]
+                let imageSource = image.getAttribute("src")
+                console.log(imageSource) //http://127.0.0.1:5500/Images/dooku.png
+                let shortenedSource = imageSource.substring(imageSource.indexOf("/Images"));
+                console.log(shortenedSource)
+                let imageToRemove = document.querySelector(`img[src="${shortenedSource}"]`)
+                console.log(imageToRemove)
+                imageToRemove.parentNode.removeChild(imageToRemove)
+            }
+        }
+    }
+}
+
+
+
+
+
 
 
 //function play lego breaking sound 
@@ -383,6 +409,7 @@ for (let i=0; i<boxes.length; i++){
     boxes[i].addEventListener("click", function (){
         changePlayerStats(boxesToHighlightPick)
         showLocation(boxesToHighlightPick)
+        removeCharacter(boxesToHighlightPick)
         console.log(player1Instance.getPoints())
         console.log(player2Instance.getPoints())
 
