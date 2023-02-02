@@ -14,10 +14,12 @@ aside{
 #lego{
     height:25%;
     width: 25%;
+    padding:20px;
 }
 
 /* style the description */
 .description{
+    
     padding-left: 1%;
     font-family: sans-serif;
     color: whitesmoke;
@@ -30,11 +32,21 @@ aside{
 #player1table{
     float: left;
     border: 3px solid #2E67F8;
+    background-color: rgba(0, 0, 128, 0.5);
+    margin:10px;
+    color: white;
+    font-family: sans-serif;
+    font-size: large;
 }
 
 #player2table{
     float: right;
     border:3px solid red;
+    background-color: rgba(255, 0, 0, 0.7);
+    margin:10px;
+    color: white;
+    font-family: sans-serif;
+    font-size: large;
 }
 
 table{
@@ -62,6 +74,10 @@ body{
 #playerTurn{
     font-family: 'Star Wars', sans-serif;
     text-align: center;
+    color:white;
+    text-decoration: underline;
+    text-shadow: 1px 1px 2px black;
+    font-size: xx-large;
 }
 
 
@@ -82,7 +98,7 @@ body{
 
 /* the boxes that were created for the grid in javascript */
 .box{
-    background-color: lightblue;
+    background-color: rgba(173, 216, 230, 0.5);
     text-align: center;
     /* line-height: 1.5; */
     border:1px solid black;
@@ -97,6 +113,7 @@ body{
 /* hit marker on the boxes */
 .hit-highlight{
     background-color: red;
+
 }
 
 /* fit the images in the boxes */
@@ -121,7 +138,7 @@ body{
 }
 
 
-/* style the player grids which houses player1's game pieces */
+/* style the player grids which houses player's game pieces */
 .characters-container {
     display: grid;
     grid-template-columns: repeat(10, 1fr);
@@ -129,6 +146,14 @@ body{
     border: 3px solid gray;
   }
 
+#grid2{
+    background-color:#2E67F8;
+
+}
+
+#grid3{
+    background-color: red;
+}
 
 /* game pieces */
 .grid-item {
@@ -163,23 +188,4 @@ input[type="button"]{
 }
 
 
-/* style the atte tank background */
-/* #atte{
-   height: 500px; 
-   width: 500px;
-   margin: 10px 10px 0px 800px;
-   border: solid red
-} */
-
-
-/* style the header */
-
-
-
-header{
-    background: url("/Images/atte.png");
-    background-size: contain;
-    background-repeat: no-repeat;
-    /* height: 300px; */
-}
 

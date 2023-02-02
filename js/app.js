@@ -344,8 +344,13 @@ function player1Click(event){
     
     let playerTurn = document.querySelector("#playerTurn")
     playerTurn.innerHTML = "Player one's turn!"
+
+    //change to player 1's background 
+    document.body.style.backgroundImage = "url(/Images/player1background.jpeg)"
+
     const boxes = document.getElementsByClassName("box")
     
+
     for (let i=0; i<boxes.length; i++){
         let boxesToHighlightPick = [boxes[i], boxes[i+1], boxes[i+15], boxes[i+16]]
        
@@ -373,6 +378,11 @@ function player2Click(event) {
     playerTurn.innerHTML = "Player two's turn!"
     const boxes = document.getElementsByClassName("box");
     console.log("player 2 turn !")
+    //change the background on player's 2 turn
+
+    document.body.style.backgroundImage = "url(/Images/player2background.jpeg)"
+
+
     for (let i=0; i<boxes.length; i++){
         let boxesToHighlightPick = [boxes[i], boxes[i+1], boxes[i+15], boxes[i+16]]
         boxes[i].addEventListener("mouseover", function(){
