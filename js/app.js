@@ -36,7 +36,7 @@ const grid = document.querySelector('#grid');
 //const boxes = document.getElementsByClassName("box");
 
 //add boxes to the grid using for loop
- for(let i=0; i<225; i++){
+ for(let i=0; i<120; i++){
     const box = document.createElement("div")
     box.classList.add("box")
     box.innerHTML = i +1
@@ -49,7 +49,7 @@ const boxes = document.getElementsByClassName("box");
 // create random indexes in which to add player 1 pieces to the grid 
 function randomizePlayer1Pieces(randomPlayer1Indexes, randomPlayer2Indexes){
     while (randomPlayer1Indexes.length < 10) {
-        let randomNum = Math.floor(Math.random() * 225) + 1
+        let randomNum = Math.floor(Math.random() * 120) + 1
         // if the random is not already chosen, then add it to the array
         if ((!randomPlayer1Indexes.includes(randomNum)) && (!randomPlayer2Indexes.includes(randomNum))){
             randomPlayer1Indexes.push(randomNum)
@@ -71,7 +71,7 @@ function addPlayer1PiecestoGrid(boxes, randomPlayer1Indexes, player1pieces){
 // create random indexes in which to add player 2 pieces to the grid 
 function randomizePlayer2Pieces(randomPlayer1Indexes, randomPlayer2Indexes) {
     while (randomPlayer2Indexes.length < 10) {
-        let randomNum = Math.floor(Math.random() * 225) + 1;
+        let randomNum = Math.floor(Math.random() * 120) + 1;
         // if the random is not already chosen, then add it to the array
         if ((!randomPlayer1Indexes.includes(randomNum)) && (!randomPlayer2Indexes.includes(randomNum))){
             randomPlayer2Indexes.push(randomNum)
@@ -121,36 +121,36 @@ class Player1 {
 
     //SECTION - player methods used to highlight target and hit target
     // The user will be able to hover over a 2x2 section of the grid
-    targetHover(boxesToHighlightPick){
+    targetHover(boxToHighlightPick){
         // basically highlight the adjacent boxes including the one box you are hovering over
-        let boxesToHighlight = boxesToHighlightPick
+        let boxToHighlight = boxToHighlightPick
         // for the boxes within the boxesToHighlight, add them to a class where we can add highlight with css later
-        for (const boxToHighlight of boxesToHighlight){
+        //for (const boxToHighlight of boxesToHighlight){
             if(boxToHighlight){
                 boxToHighlight.classList.add("highlight")
             }
         }
-    }
+    //}
 
     // When the user leaves that area that was hovered, UN-highlight 
-    targetOutHover(boxesToHighlightPick){
+    targetOutHover(boxToHighlightPick){
         // basically highlight the adjacent boxes including the one box you are hovering over
         // let boxesToHighlight = [boxes[i], boxes[i+1], boxes[i+20], boxes[i+21]]
-        let boxesToHighlight = boxesToHighlightPick
+        let boxToHighlight = boxToHighlightPick
         // for the boxes within the boxesToHighlight, add them to a class where we remove the highlight in css
-        for (const boxToHighlight of boxesToHighlight){
+        //for (const boxToHighlight of boxesToHighlight){
             if(boxToHighlight){
                 boxToHighlight.classList.remove("highlight")
             }
         }
-    }
+    //}
 
     //When the player clicks on the area, highlight the area they hit
-    targetHit(boxesToHighlightPick){
+    targetHit(boxToHighlightPick){
         // let boxesToHighlight = [boxes[i], boxes[i+1], boxes[i+20], boxes[i+21]]
-        let boxesToHighlight = boxesToHighlightPick
+        let boxToHighlight = boxToHighlightPick
         // for the boxes within the boxesToHighlight, add them to a class where we can add highlight with css later
-        for (const boxToHighlight of boxesToHighlight){
+        //for (const boxToHighlight of boxesToHighlight){
             //make the pointerEvents to "none" so that the player doesnt click on the same box again
             boxToHighlight.style.pointerEvents ='none'
             if(boxToHighlight){
@@ -158,7 +158,7 @@ class Player1 {
                 
             }
         }
-    }
+  //  }
 
 //END OF CLASS 
 }
@@ -213,12 +213,12 @@ const player2Instance = new Player2()
 
 //Functions that arent inside the class (put them outside because they belong in a main game function/object) 
 //SECTION - Change the player stats based on what was hit in the strike
-function changePlayerStats(boxesToHighlightPick){
+function changePlayerStats(boxToHighlightPick){
     // let boxesHit = [boxes[i], boxes[i+1], boxes[i+20], boxes[i+21]]
-    let boxesHit = boxesToHighlightPick
+    let boxHit = boxToHighlightPick
     //for the boxes that were hit...
-    for (const boxHit of boxesHit){
-        if(boxHit){
+    // for (const boxHit of boxesHit){
+    //     if(boxHit){
             // if there is an image tag inside the box... 
             if(boxHit.getElementsByTagName("img").length >0){
                 //get the image tag's source
@@ -246,17 +246,17 @@ function changePlayerStats(boxesToHighlightPick){
                 }
             }
         }
-    }
-//End of function changePlayerStatus
-}
+//     }
+// //End of function changePlayerStatus
+// }
 
 //Section - After a hit has been made, show the location of the clone/droid destroyed
-function showLocation(boxesToHighlightPick){
+function showLocation(boxToHighlightPick){
     //let boxesHit = [boxes[i], boxes[i+1], boxes[i+20], boxes[i+21]]
-    let boxesHit = boxesToHighlightPick
+    let boxHit = boxToHighlightPick
     //for the boxes that were hit...
-    for (const boxHit of boxesHit){
-        if(boxHit){
+    // for (const boxHit of boxesHit){
+    //     if(boxHit){
             //show the location of the clone/droid if they were hit
             if(boxHit.getElementsByTagName("img").length >0){
                 let childImages = boxHit.querySelectorAll("img")
@@ -266,18 +266,17 @@ function showLocation(boxesToHighlightPick){
                 playSound()               
             }
         }
-    }
-}
+//     }
+// }
 
 // function that removes the character from the player grid if they have been destroyed 
-function removeCharacter(boxesToHighlightPick){
+function removeCharacter(boxToHighlightPick){
     // query selector on the grids which house the player pieces
     let charactersContainer = document.getElementsByClassName("characters-container")
-    // let boxesHit = [boxes[i], boxes[i+1], boxes[i+20], boxes[i+21]]
-    let boxesHit = boxesToHighlightPick
+    let boxHit = boxToHighlightPick
     //for the boxes that were hit...
-    for (const boxHit of boxesHit){
-        if(boxHit){
+    // for (const boxHit of boxesHit){
+    //     if(boxHit){
             // if there is an image tag inside the box... 
             if(boxHit.getElementsByTagName("img").length >0){
                 //get the image tag's source
@@ -291,8 +290,8 @@ function removeCharacter(boxesToHighlightPick){
                 imageToRemove.parentNode.removeChild(imageToRemove)
             }
         }
-    }
-}
+//     }
+// }
 
 
 
@@ -332,6 +331,12 @@ startBtn.addEventListener("click", function(){
     // disable the start button once it is clicked on 
     startBtn.disabled = true
     playSong()
+    document.getElementById("player1table").style.display ="block"
+    document.getElementById("player2table").style.display ="block"
+    document.getElementById("grid").style.display = "grid"
+    document.getElementById("lego").style.display ="none"
+    document.getElementById("description").style.display ="none"
+
 })
 
 
@@ -352,16 +357,16 @@ function player1Click(event){
     
 
     for (let i=0; i<boxes.length; i++){
-        let boxesToHighlightPick = [boxes[i], boxes[i+1], boxes[i+15], boxes[i+16]]
+        let boxToHighlightPick = boxes[i]
        
         boxes[i].addEventListener("mouseover", function(){
-            player1Instance.targetHover(boxesToHighlightPick)
+            player1Instance.targetHover(boxToHighlightPick)
         })
         boxes[i].addEventListener("mouseout", function(){
-            player1Instance.targetOutHover(boxesToHighlightPick)
+            player1Instance.targetOutHover(boxToHighlightPick)
         })
         boxes[i].addEventListener("click", function(){
-            player1Instance.targetHit(boxesToHighlightPick)
+            player1Instance.targetHit(boxToHighlightPick)
         })
         // this part of the code will switch to player 2's turn once player 1 clicks on the grid
         currentUser = 2;
@@ -384,15 +389,15 @@ function player2Click(event) {
 
 
     for (let i=0; i<boxes.length; i++){
-        let boxesToHighlightPick = [boxes[i], boxes[i+1], boxes[i+15], boxes[i+16]]
+        let boxToHighlightPick = boxes[i]
         boxes[i].addEventListener("mouseover", function(){
-            player2Instance.targetHover(boxesToHighlightPick)
+            player2Instance.targetHover(boxToHighlightPick)
         })
         boxes[i].addEventListener("mouseout", function(){
-            player2Instance.targetOutHover(boxesToHighlightPick)
+            player2Instance.targetOutHover(boxToHighlightPick)
         })
         boxes[i].addEventListener("click", function(){
-            player2Instance.targetHit(boxesToHighlightPick)
+            player2Instance.targetHit(boxToHighlightPick)
         })
 
         // this part of the code will switch to player 1's turn once player 1 clicks on the grid
@@ -415,11 +420,11 @@ function player2Click(event) {
 //SECTION MAIN GAME FUNCTIONALITY
 // add an event listener for all the boxes on the grid 
 for (let i=0; i<boxes.length; i++){
-    let boxesToHighlightPick = [boxes[i], boxes[i+1], boxes[i+15], boxes[i+16]]
+    let boxToHighlightPick = boxes[i]
     boxes[i].addEventListener("click", function (){
-        changePlayerStats(boxesToHighlightPick)
-        showLocation(boxesToHighlightPick)
-        removeCharacter(boxesToHighlightPick)
+        changePlayerStats(boxToHighlightPick)
+        showLocation(boxToHighlightPick)
+        removeCharacter(boxToHighlightPick)
         console.log(player1Instance.getPoints())
         console.log(player2Instance.getPoints())
 
@@ -427,10 +432,14 @@ for (let i=0; i<boxes.length; i++){
         //When one of the player gets the max points (18 points), they win the game
         if (player1Instance.getPoints() >= 18 ){
             console.log("player 1 wins!!!!!")
-            alert("player2 wins")
+            alert("player1 wins")
+            playerTurn.innerHTML = "VICTORY player one wins!"
+            document.getElementById("grid").style.display = "none"
         } else if (player2Instance.getPoints() >= 18){
             alert("player2 wins")
             console.log("player 2 wins!!!!")
+            playerTurn.innerHTML = "VICTORY player two wins!"
+            document.getElementById("grid").style.display = "none"
         }
     })
 
