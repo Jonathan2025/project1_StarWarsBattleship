@@ -1,4 +1,4 @@
-# Project1 Star Wars Battleship!
+# Project 1 Star Wars Battleship!
 Purpose - This was a game project that I had done during the General Assembly Software Engineering Immersive Program. The purpose of the project was to go beyond what we learned in HTML, CSS, and Javascript and create a full-on functioning game for two players. For me, I wanted to build a battleship style game. 
 
 How it works- The game that I created was inspired by battleship. Essentially within the grid Lego Minifigures or characters are scattered randomly. Each player takes their turn trying to strike grid boxes that they believe will have their opponent's minifigure. If it’s a hit, then the minifigure location will be revealed and they are removed from the player's grid so that both players know which characters are still left on the battlefield. However, the player needs to be careful of hitting their own characters because that would mean points for the other team. Regular soldiers are only worth one points but special characters like Yoda and General Grievous are worth 5 points. The first player to reach the maximum of 18 points will win the game!
@@ -9,7 +9,10 @@ Why is this important - For me this was definitely a difficult game to build. It
 
 How I would improve this project - I think as I gain more skills in the course I definitely would like to make this an actual 2 player game where there will be 2 grids and each player will be able to see their own game pieces but not the other player's game pieces. In addition, I figured out how to create draggable board pieces so when it comes time for the new version of this game that is something I would love to implement. 
 
-Citations 
+Citations  
+
+
+
 Creating a grid 
 https://developer.mozilla.org/en-US/docs/Learn/CSS/CSS_layout/Grids
 
