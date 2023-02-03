@@ -22,7 +22,7 @@
 <body>
 <!-- keep everything within the pane so that when we scroll down, itll still be on the page -->
 <div id="pane-container"> 
-    
+    <h1 id="winner"></h1>
     <h2 id="description">Star Wars Battleship Attack Set!</h2>
     <h2 id="playerTurn"></h2>
     <!-- buttons -->
@@ -31,10 +31,7 @@
         <input type="button" id="instructionsBtn" value="instructions">
         <input type="button" id="restartBtn" value="A New Hope">
     </div>
-    <!-- <audio id="music" autoplay controls loop>
-        <source src="/Images/music.mp3" type="audio/mpeg">
-    </audio> -->
-     <!-- section for the instructions -->
+
      <aside>
         <section class="instructions">
             <h2>How to Play the Game</h2>
@@ -42,15 +39,13 @@
                 This game is a twist on the board game Battleship. once the players start the game, the game pieces will be scattered throughout the grid. 
                 Player one must hunt down the droid army by hover over the grid and clicking to strike!
                 At the same time, player two strikes back and attempts to destory player one's game pieces. 
-                The player with the most points when the timer stops or the first to reach the maximum points wins!
+                The player who reaches the 18 maximum points wins the game!
                 May the force be with you!
             </p>
             <input type ="button" id="closeInstructions" value="Let's Play!">
         </section>
 
     </aside>
-
-
 
 
     <!-- add game stats for each player -->
@@ -73,10 +68,6 @@
             <td> Heros </td>
             <td id="heroCount">2</td>
         </tr>
-        <!-- <tr> 
-            <td> Points </td>
-            <td id="player1Points">0</td>
-        </tr> -->
 
     </table>
 
@@ -99,14 +90,8 @@
             <td> Villans </td>
             <td id="villanCount">2</td>
         </tr>
-        <!-- <tr> 
-            <td> Points </td>
-            <td id="player2Points">0</td>
-        </tr> -->
 
     </table>
-    
-    <!-- <audio id="lego-break" src="Images/lego-breaking.mp3"></audio> -->
 
      <!-- create the grid for player one game pieces  -->
      <div id="grid2" class="characters-container" id="player1Grid"> 

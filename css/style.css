@@ -26,8 +26,6 @@ aside{
     text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
 }
 
-
-
 /* style the tables */
 #player1table{
     float: left;
@@ -83,7 +81,7 @@ body{
 #grid{
     display:grid;
     grid-template-columns: repeat(15, 1fr);
-    grid-template-rows: repeat(8, 1fr);
+    grid-template-rows: repeat(5, 1fr);
     grid-gap: 10px;
     display:none;
     
@@ -113,7 +111,7 @@ body{
 .box img{
     width:50%;
     height:80%;
-    display:none;
+    display:block;
 }
 
 
@@ -182,3 +180,14 @@ input[type="button"]{
 
 
 
+/* adding the tanks to the background once the player wins 
+if the player one wins show the atte.png
+else if player two wins show the droid tank   */
+
+#winner{
+    font-size: 100px;
+    text-align: center;
+    font-family: sans-serif;
+    background: #f8d31b;
+    display:none;
+}

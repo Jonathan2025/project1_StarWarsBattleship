@@ -1,4 +1,4 @@
-// SECTION  Instructions for the Game
+// SECTION Instructions for the Game
 // When we click on the instructions button, it will show the instructions
 let instructions = document.querySelector("#instructionsBtn")
 function instructionsClick () {
@@ -29,6 +29,7 @@ let player2pieces = document.getElementsByClassName("player2-piece")
 let randomPlayer1Indexes = []
 let randomPlayer2Indexes = []
 let playerTurn = document.querySelector("#playerTurn")
+const restartButton = document.querySelector("#restartBtn")
 
 
 // SECTION 1 - Create the game grid 
@@ -36,7 +37,7 @@ const grid = document.querySelector('#grid');
 //const boxes = document.getElementsByClassName("box");
 
 //add boxes to the grid using for loop
- for(let i=0; i<120; i++){
+ for(let i=0; i<75; i++){
     const box = document.createElement("div")
     box.classList.add("box")
     box.innerHTML = i +1
@@ -49,7 +50,7 @@ const boxes = document.getElementsByClassName("box");
 // create random indexes in which to add player 1 pieces to the grid 
 function randomizePlayer1Pieces(randomPlayer1Indexes, randomPlayer2Indexes){
     while (randomPlayer1Indexes.length < 10) {
-        let randomNum = Math.floor(Math.random() * 120) + 1
+        let randomNum = Math.floor(Math.random() * 75) + 1
         // if the random is not already chosen, then add it to the array
         if ((!randomPlayer1Indexes.includes(randomNum)) && (!randomPlayer2Indexes.includes(randomNum))){
             randomPlayer1Indexes.push(randomNum)
@@ -71,7 +72,7 @@ function addPlayer1PiecestoGrid(boxes, randomPlayer1Indexes, player1pieces){
 // create random indexes in which to add player 2 pieces to the grid 
 function randomizePlayer2Pieces(randomPlayer1Indexes, randomPlayer2Indexes) {
     while (randomPlayer2Indexes.length < 10) {
-        let randomNum = Math.floor(Math.random() * 120) + 1;
+        let randomNum = Math.floor(Math.random() * 75) + 1;
         // if the random is not already chosen, then add it to the array
         if ((!randomPlayer1Indexes.includes(randomNum)) && (!randomPlayer2Indexes.includes(randomNum))){
             randomPlayer2Indexes.push(randomNum)
@@ -118,47 +119,31 @@ class Player1 {
         return this.points.innerHTML
     }
 
-
-    //SECTION - player methods used to highlight target and hit target
-    // The user will be able to hover over a 2x2 section of the grid
+    // SECTION - player methods used to highlight target and hit target
+    // The user will be able to hover over a box over the grid
     targetHover(boxToHighlightPick){
-        // basically highlight the adjacent boxes including the one box you are hovering over
         let boxToHighlight = boxToHighlightPick
-        // for the boxes within the boxesToHighlight, add them to a class where we can add highlight with css later
-        //for (const boxToHighlight of boxesToHighlight){
-            if(boxToHighlight){
-                boxToHighlight.classList.add("highlight")
-            }
-        }
-    //}
+        // for boxToHighlight, add it to a class where we can add highlight with css later
+        boxToHighlight.classList.add("highlight")
+    }
 
     // When the user leaves that area that was hovered, UN-highlight 
     targetOutHover(boxToHighlightPick){
-        // basically highlight the adjacent boxes including the one box you are hovering over
-        // let boxesToHighlight = [boxes[i], boxes[i+1], boxes[i+20], boxes[i+21]]
+        // basically highlight the box you are hovering over
         let boxToHighlight = boxToHighlightPick
-        // for the boxes within the boxesToHighlight, add them to a class where we remove the highlight in css
-        //for (const boxToHighlight of boxesToHighlight){
-            if(boxToHighlight){
-                boxToHighlight.classList.remove("highlight")
-            }
-        }
-    //}
+        // boxtoHighLight, add the box to a class where we remove the highlight in css
+        boxToHighlight.classList.remove("highlight")
+    }
 
     //When the player clicks on the area, highlight the area they hit
     targetHit(boxToHighlightPick){
-        // let boxesToHighlight = [boxes[i], boxes[i+1], boxes[i+20], boxes[i+21]]
         let boxToHighlight = boxToHighlightPick
-        // for the boxes within the boxesToHighlight, add them to a class where we can add highlight with css later
-        //for (const boxToHighlight of boxesToHighlight){
-            //make the pointerEvents to "none" so that the player doesnt click on the same box again
-            boxToHighlight.style.pointerEvents ='none'
-            if(boxToHighlight){
-                boxToHighlight.classList.add("hit-highlight")
-                
-            }
-        }
-  //  }
+        //for the boxToHighlight, add it to a class where we can add highlight with css later
+        //make the pointerEvents to "none" so that the player doesnt click on the same box again
+        boxToHighlight.style.pointerEvents ='none'
+        boxToHighlight.classList.add("hit-highlight")
+    }
+
 
 //END OF CLASS 
 }
@@ -174,7 +159,6 @@ class Player2 extends Player1 {
         this.droidArmy = document.querySelector("#droidCount")
         this.points = document.querySelector("#player2Points")
         this.villans = document.querySelector("#villanCount")
-        //this.points = document.querySelector("#player2Points")
         
     }
 
@@ -200,7 +184,6 @@ class Player2 extends Player1 {
     //extended from the player 1 class 
 
 
-
 //End of the class 
 }
 
@@ -210,93 +193,69 @@ const player1Instance = new Player1()
 const player2Instance = new Player2()
 
 
-
 //Functions that arent inside the class (put them outside because they belong in a main game function/object) 
 //SECTION - Change the player stats based on what was hit in the strike
 function changePlayerStats(boxToHighlightPick){
-    // let boxesHit = [boxes[i], boxes[i+1], boxes[i+20], boxes[i+21]]
     let boxHit = boxToHighlightPick
-    //for the boxes that were hit...
-    // for (const boxHit of boxesHit){
-    //     if(boxHit){
-            // if there is an image tag inside the box... 
-            if(boxHit.getElementsByTagName("img").length >0){
-                //get the image tag's source
-                const image = boxHit.getElementsByTagName("img")[0]
-                let imageSource = image.getAttribute("src")
-                // if the box has an image of a clone,
-                if ((imageSource.includes('/Images/clone1.png'))|| (imageSource.includes('/Images/clone2.png')) || (imageSource.includes('/Images/clone3.png')) || (imageSource.includes('/Images/clone4.png'))){
-                    // then add 1 to player 2's points and subtract 1 from the clone army (player 1)
-                    player2Points.innerHTML = parseInt(player2Points.innerHTML) + 1
-                    cloneArmy.innerHTML = parseInt(cloneArmy.innerHTML) - 1
-                //else if the box has an image of a hero 
-                } else if ((imageSource.includes('/Images/obiwan.png'))|| (imageSource.includes('/Images/yoda.png'))){
-                    // then subtract 1 from heros and add 5 points to player 2 side 
-                    player2Points.innerHTML = parseInt(player2Points.innerHTML) + 5
-                    heros.innerHTML = parseInt(heros.innerHTML) - 1
-                //else if the box has an image of a droid...
-                } else if ((imageSource.includes('/Images/droid1.png')) || (imageSource.includes('/Images/droid2.png')) || (imageSource.includes('/Images/droid3.png')) || (imageSource.includes('/Images/droid4.png'))){
-                    // then add 1 to player 1's points and subtract 1 from the droid army (player 2 side)
-                    player1Points.innerHTML = parseInt(player1Points.innerHTML) + 1
-                    droidArmy.innerHTML = parseInt(droidArmy.innerHTML) - 1
-                } else if ((imageSource.includes('/Images/dooku.png')) || (imageSource.includes('/Images/grevious.png'))){
-                    // then add 5 player 1's points and subtract 1 from villans
-                    player1Points.innerHTML = parseInt(player1Points.innerHTML) + 5
-                    villans.innerHTML = parseInt(villans.innerHTML) - 1
-                }
+        // if there is an image tag inside the box... 
+        if(boxHit.getElementsByTagName("img").length >0){
+            //get the image tag's source
+            const image = boxHit.getElementsByTagName("img")[0]
+            let imageSource = image.getAttribute("src")
+            // if the box has an image of a clone,
+            if ((imageSource.includes('/Images/clone1.png'))|| (imageSource.includes('/Images/clone2.png')) || (imageSource.includes('/Images/clone3.png')) || (imageSource.includes('/Images/clone4.png'))){
+                // then add 1 to player 2's points and subtract 1 from the clone army (player 1)
+                player2Points.innerHTML = parseInt(player2Points.innerHTML) + 1
+                cloneArmy.innerHTML = parseInt(cloneArmy.innerHTML) - 1
+            //else if the box has an image of a hero 
+            } else if ((imageSource.includes('/Images/obiwan.png'))|| (imageSource.includes('/Images/yoda.png'))){
+                // then subtract 1 from heros and add 5 points to player 2 side 
+                player2Points.innerHTML = parseInt(player2Points.innerHTML) + 5
+                heros.innerHTML = parseInt(heros.innerHTML) - 1
+            //else if the box has an image of a droid...
+            } else if ((imageSource.includes('/Images/droid1.png')) || (imageSource.includes('/Images/droid2.png')) || (imageSource.includes('/Images/droid3.png')) || (imageSource.includes('/Images/droid4.png'))){
+                // then add 1 to player 1's points and subtract 1 from the droid army (player 2 side)
+                player1Points.innerHTML = parseInt(player1Points.innerHTML) + 1
+                droidArmy.innerHTML = parseInt(droidArmy.innerHTML) - 1
+            } else if ((imageSource.includes('/Images/dooku.png')) || (imageSource.includes('/Images/grevious.png'))){
+                // then add 5 player 1's points and subtract 1 from villans
+                player1Points.innerHTML = parseInt(player1Points.innerHTML) + 5
+                villans.innerHTML = parseInt(villans.innerHTML) - 1
             }
         }
-//     }
-// //End of function changePlayerStatus
-// }
+    }
 
-//Section - After a hit has been made, show the location of the clone/droid destroyed
+
+//Section - After a hit has been made, show the location of the character destroyed
 function showLocation(boxToHighlightPick){
-    //let boxesHit = [boxes[i], boxes[i+1], boxes[i+20], boxes[i+21]]
     let boxHit = boxToHighlightPick
-    //for the boxes that were hit...
-    // for (const boxHit of boxesHit){
-    //     if(boxHit){
-            //show the location of the clone/droid if they were hit
-            if(boxHit.getElementsByTagName("img").length >0){
-                let childImages = boxHit.querySelectorAll("img")
-                childImages.forEach(image => image.style.display = 'block')
+        //show the location of the clone/droid if they were hit
+        if(boxHit.getElementsByTagName("img").length >0){
+            let childImages = boxHit.querySelectorAll("img")
+            childImages.forEach(image => image.style.display = 'block')
 
-                //play lego break sound
-                playSound()               
-            }
+            //play lego break sound
+            playSound()               
         }
-//     }
-// }
+    }
+
 
 // function that removes the character from the player grid if they have been destroyed 
 function removeCharacter(boxToHighlightPick){
     // query selector on the grids which house the player pieces
-    let charactersContainer = document.getElementsByClassName("characters-container")
     let boxHit = boxToHighlightPick
-    //for the boxes that were hit...
-    // for (const boxHit of boxesHit){
-    //     if(boxHit){
-            // if there is an image tag inside the box... 
-            if(boxHit.getElementsByTagName("img").length >0){
-                //get the image tag's source
-                const image = boxHit.getElementsByTagName("img")[0]
-                let imageSource = image.getAttribute("src")
-                console.log(imageSource) //http://127.0.0.1:5500/Images/dooku.png
-                let shortenedSource = imageSource.substring(imageSource.indexOf("/Images"));
-                console.log(shortenedSource)
-                let imageToRemove = document.querySelector(`img[src="${shortenedSource}"]`)
-                console.log(imageToRemove)
-                imageToRemove.parentNode.removeChild(imageToRemove)
-            }
+        if(boxHit.getElementsByTagName("img").length >0){
+            //get the image tag's source
+            const image = boxHit.getElementsByTagName("img")[0]
+            let imageSource = image.getAttribute("src")
+            console.log(imageSource) //http://127.0.0.1:5500/Images/dooku.png
+            let shortenedSource = imageSource.substring(imageSource.indexOf("/Images"));
+            console.log(shortenedSource)
+            let imageToRemove = document.querySelector(`img[src="${shortenedSource}"]`)
+            console.log(imageToRemove)
+            imageToRemove.parentNode.removeChild(imageToRemove)
         }
-//     }
-// }
-
-
-
-
-
+    }
 
 
 //function play lego breaking sound 
@@ -312,7 +271,6 @@ function playSong() {
     audio.play();
 
 }
-
 
 
 
@@ -347,7 +305,7 @@ let currentUser =1
 
 function player1Click(event){
     
-    let playerTurn = document.querySelector("#playerTurn")
+    //let playerTurn = document.querySelector("#playerTurn")
     playerTurn.innerHTML = "Player one's turn!"
 
     //change to player 1's background 
@@ -355,7 +313,6 @@ function player1Click(event){
 
     const boxes = document.getElementsByClassName("box")
     
-
     for (let i=0; i<boxes.length; i++){
         let boxToHighlightPick = boxes[i]
        
@@ -410,13 +367,6 @@ function player2Click(event) {
     }
 
 
-  
-
-
-
-
-
-
 //SECTION MAIN GAME FUNCTIONALITY
 // add an event listener for all the boxes on the grid 
 for (let i=0; i<boxes.length; i++){
@@ -427,24 +377,40 @@ for (let i=0; i<boxes.length; i++){
         removeCharacter(boxToHighlightPick)
         console.log(player1Instance.getPoints())
         console.log(player2Instance.getPoints())
-
-
         //When one of the player gets the max points (18 points), they win the game
         if (player1Instance.getPoints() >= 18 ){
             console.log("player 1 wins!!!!!")
             alert("player1 wins")
-            playerTurn.innerHTML = "VICTORY player one wins!"
             document.getElementById("grid").style.display = "none"
+            document.getElementById("grid2").style.display = "none"
+            document.getElementById("grid3").style.display = "none"
+            const winner = document.getElementById("winner")
+            const playerTurn = document.querySelector("#playerTurn")
+            winner.style.display ="block"
+            winner.innerHTML ="Player 1 Wins!!"
+            playerTurn.innerHTML=""
         } else if (player2Instance.getPoints() >= 18){
             alert("player2 wins")
             console.log("player 2 wins!!!!")
-            playerTurn.innerHTML = "VICTORY player two wins!"
             document.getElementById("grid").style.display = "none"
+            document.getElementById("grid2").style.display = "none"
+            document.getElementById("grid3").style.display = "none"
+            const winner = document.getElementById("winner")
+            const playerTurn = document.querySelector("#playerTurn")
+            winner.style.display ="block"
+            winner.innerHTML ="Player 2 Wins!!"
+            playerTurn.innerHTML=""
         }
     })
-
-
 }
 
 
+
+
+// Section 9 - Can restart the game -- will reload the page
+restartButton.addEventListener("click", locationreload)
+
+function locationreload(){
+    location.reload()
+}
 
