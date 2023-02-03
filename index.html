@@ -20,8 +20,7 @@
 
 </header>
 <body>
-<!-- keep everything within the pane so that when we scroll down, itll still be on the page -->
-<div id="pane-container"> 
+    <!-- the winner text will appear once the winner is announced -->
     <h1 id="winner"></h1>
     <h2 id="description">Star Wars Battleship Attack Set!</h2>
     <h2 id="playerTurn"></h2>
@@ -38,7 +37,8 @@
             <p> New from Lego Star Wars! The planet is under attack and the faith of the republic is in your hands!
                 This game is a twist on the board game Battleship. once the players start the game, the game pieces will be scattered throughout the grid. 
                 Player one must hunt down the droid army by hover over the grid and clicking to strike!
-                At the same time, player two strikes back and attempts to destory player one's game pieces. 
+                At the same time, player two strikes back and attempts to destory player one's game pieces.
+                but watch out! you do not want to fire upon your own troops!
                 The player who reaches the 18 maximum points wins the game!
                 May the force be with you!
             </p>
@@ -46,7 +46,6 @@
         </section>
 
     </aside>
-
 
     <!-- add game stats for each player -->
     <table class="table" id="player1table">
@@ -125,7 +124,7 @@
     </div>
 
 
-</div>
+
     <!-- create the main game grid -->
     <div id="grid" class="grid-container">
         <!-- we will be able to drop our game pieces here -->

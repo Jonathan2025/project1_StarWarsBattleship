@@ -389,6 +389,7 @@ for (let i=0; i<boxes.length; i++){
             winner.style.display ="block"
             winner.innerHTML ="Player 1 Wins!!"
             playerTurn.innerHTML=""
+            playEndMusic()
         } else if (player2Instance.getPoints() >= 18){
             alert("player2 wins")
             console.log("player 2 wins!!!!")
@@ -400,14 +401,21 @@ for (let i=0; i<boxes.length; i++){
             winner.style.display ="block"
             winner.innerHTML ="Player 2 Wins!!"
             playerTurn.innerHTML=""
+            playEndMusic()
         }
     })
 }
 
 
+function playEndMusic(){
+    const audio = new Audio("Images/endsong.mp3");
+    audio.play();
+}
 
 
-// Section 9 - Can restart the game -- will reload the page
+
+
+// SECTION - Can restart the game -- will reload the page
 restartButton.addEventListener("click", locationreload)
 
 function locationreload(){
