@@ -45,4 +45,4 @@ Clone wars theme
 https://instrumentalfx.co/star-wars-clone-wars-theme-song-download/
 
 End Song (Transformers theme) 
-✔️Transformers 3  - It's our fight (The Score - Soundtrack)![image](https://user-images.githubusercontent.com/118234157/216510636-d4d45ecd-3f31-472e-93f0-7faf89d32b0e.png)
+✔️Transformers 3  - It's our fight (The Score - Soundtrack)
