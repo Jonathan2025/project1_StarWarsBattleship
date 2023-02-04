@@ -9,6 +9,8 @@ Why is this important - For me this was definitely a difficult game to build. It
 
 How I would improve this project - I think as I gain more skills in the course I definitely would like to make this an actual 2 player game where there will be 2 grids and each player will be able to see their own game pieces but not the other player's game pieces. In addition, I figured out how to create draggable board pieces so when it comes time for the new version of this game that is something I would love to implement. 
 
+Wireframe 
+![image](https://user-images.githubusercontent.com/118234157/216776221-8bad7c67-592a-40f8-bc1a-efd5ad34a3dd.png)
 
 
 
