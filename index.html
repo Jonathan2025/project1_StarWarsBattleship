@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/style.css">
-    <script type="text/javascript" src="js/app.js" defer></script>
+    <script type="text/javascript" src="/js/app.js" defer></script>
     <!-- import the star wars font style  -->
     <link href="https://fonts.cdnfonts.com/css/star-wars" rel="stylesheet">
     <style>@import url('https://fonts.cdnfonts.com/css/star-wars');</style>
@@ -22,6 +22,7 @@
 <body>
     <!-- the winner text will appear once the winner is announced -->
     <h1 id="winner"></h1>
+    <!-- this text will only appear on the home screen -->
     <h2 id="description">Star Wars Battleship Attack Set!</h2>
     <h2 id="playerTurn"></h2>
     <!-- buttons -->
@@ -36,10 +37,11 @@
             <h2>How to Play the Game</h2>
             <p> New from Lego Star Wars! The planet is under attack and the faith of the republic is in your hands!
                 This game is a twist on the board game Battleship. once the players start the game, the game pieces will be scattered throughout the grid. 
-                Player one must hunt down the droid army by hover over the grid and clicking to strike!
+                Player one must hunt down the droid army by hovering over the grid and clicking to strike!
                 At the same time, player two strikes back and attempts to destory player one's game pieces.
                 but watch out! you do not want to fire upon your own troops!
-                The player who reaches the 18 maximum points wins the game!
+                The player who reaches the maximum points wins the game!
+                you can click on "a new hope" button to restart the game!
                 May the force be with you!
             </p>
             <input type ="button" id="closeInstructions" value="Let's Play!">
@@ -131,9 +133,6 @@
         <!-- the boxes will be created by the for loop in app.js -->
     </div>
     
-
-    <!-- using canvas -->
-    <canvas id="canvas"></canvas>
 </body>
 </html>
 

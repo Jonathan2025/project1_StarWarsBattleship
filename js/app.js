@@ -7,7 +7,7 @@ function instructionsClick () {
 }
 instructions.addEventListener("click", instructionsClick)
 
-// when we out of it, it will remove the instructions from the screen 
+// when we "x" out of it, it will remove the instructions from the screen 
 let xout = document.querySelector("#closeInstructions")
 function instructionsClose () {
     let instructionsModule = document.getElementsByTagName("aside")
@@ -16,23 +16,23 @@ function instructionsClose () {
 xout.addEventListener("click", instructionsClose)
 
 
-// SECTION  - Create the global game variables 
+// SECTION  - Create the global game variables that will be used elsewhere throughout the code
 let cloneArmy = document.querySelector("#cloneCount")
 let droidArmy = document.querySelector("#droidCount")
 let heros = document.querySelector("#heroCount")
 let villans = document.querySelector("#villanCount")
 let player1Points = document.querySelector("#player1Points")
 let player2Points = document.querySelector("#player2Points")
-const startBtn = document.querySelector("#start")
 let player1pieces = document.getElementsByClassName("player1-piece")
 let player2pieces = document.getElementsByClassName("player2-piece")
+let playerTurn = document.querySelector("#playerTurn")
+const startBtn = document.querySelector("#start")
+const restartButton = document.querySelector("#restartBtn")
 let randomPlayer1Indexes = []
 let randomPlayer2Indexes = []
-let playerTurn = document.querySelector("#playerTurn")
-const restartButton = document.querySelector("#restartBtn")
 
 
-// SECTION 1 - Create the game grid 
+// SECTION - Create the game grid 
 const grid = document.querySelector('#grid');
 //const boxes = document.getElementsByClassName("box");
 
@@ -59,13 +59,17 @@ function randomizePlayer1Pieces(randomPlayer1Indexes, randomPlayer2Indexes){
 }
 
 // Add player 1 pieces to the grid
-function addPlayer1PiecestoGrid(boxes, randomPlayer1Indexes, player1pieces){
+function addPlayer1PiecestoGrid(randomPlayer1Indexes,boxes,player1pieces){
+    // for each of the random indexes/boxes that were picked
+    // Place one of the player 1's characters inside 
     randomPlayer1Indexes.forEach(function(index, i) {
+        //create a new image
         let image = new Image();
-        // set the new image source to the image source of the droids 
+        // set the new image source to the image source from player 1 game pieces
         image.src = player1pieces[i].src
         console.log(image.src)
         boxes[index].appendChild(image)
+        console.log(boxes[index])
     })
 }
 
@@ -81,13 +85,17 @@ function randomizePlayer2Pieces(randomPlayer1Indexes, randomPlayer2Indexes) {
 }
 
 // Add player 2 pieces to the grid 
-function addPlayer2PiecestoGrid (boxes,randomPlayer2Indexes, player2pieces) {
+function addPlayer2PiecestoGrid (randomPlayer2Indexes,boxes, player2pieces) {
+    // for each of the random indexes/boxes that were picked
+    // Place one of the player 2's characters inside 
     randomPlayer2Indexes.forEach(function(index, i) {
+        // create a new image, using the image class
         let image = new Image();
         // set the new image source to the image source of the droids 
         image.src = player2pieces[i].src
         console.log(image.src)
         boxes[index].appendChild(image)
+        console.log(boxes[index])
     })
 }
 
@@ -145,7 +153,7 @@ class Player1 {
     }
 
 
-//END OF CLASS 
+//END OF Player1 class
 }
 
 
@@ -179,17 +187,16 @@ class Player2 extends Player1 {
         return this.villans.innerHTML
     }
 
-
     //the other methods like targetHover and targetHit will be 
     //extended from the player 1 class 
 
 
-//End of the class 
+//End of player 2 class 
 }
 
 //Instantiate the player 1 class
 const player1Instance = new Player1()
-//Instantiate Class Player 2
+//Instantiate the Player 2 class
 const player2Instance = new Player2()
 
 
@@ -283,9 +290,9 @@ function playSong() {
 startBtn.addEventListener("click", function(){
     player1Click(playerTurn)
     randomizePlayer1Pieces(randomPlayer1Indexes, randomPlayer2Indexes)
-    addPlayer1PiecestoGrid(boxes, randomPlayer1Indexes, player1pieces)
+    addPlayer1PiecestoGrid(randomPlayer1Indexes,boxes, player1pieces)
     randomizePlayer2Pieces(randomPlayer1Indexes, randomPlayer2Indexes)
-    addPlayer2PiecestoGrid (boxes,randomPlayer2Indexes, player2pieces)
+    addPlayer2PiecestoGrid(randomPlayer2Indexes, boxes, player2pieces)
     // disable the start button once it is clicked on 
     startBtn.disabled = true
     playSong()
@@ -311,6 +318,7 @@ function player1Click(event){
     //change to player 1's background 
     document.body.style.backgroundImage = "url(/Images/player1background.jpeg)"
 
+    // we need to define boxes here again because of how our click functions were set up
     const boxes = document.getElementsByClassName("box")
     
     for (let i=0; i<boxes.length; i++){
@@ -338,10 +346,12 @@ function player2Click(event) {
 
     let playerTurn = document.querySelector("#playerTurn")
     playerTurn.innerHTML = "Player two's turn!"
+
+    // we need to define boxes here again because of how our click functions were set up
     const boxes = document.getElementsByClassName("box");
     console.log("player 2 turn !")
-    //change the background on player's 2 turn
 
+    //change the background on player's 2 turn
     document.body.style.backgroundImage = "url(/Images/player2background.jpeg)"
 
 
@@ -377,30 +387,36 @@ for (let i=0; i<boxes.length; i++){
         removeCharacter(boxToHighlightPick)
         console.log(player1Instance.getPoints())
         console.log(player2Instance.getPoints())
+
+        //SECTION - END GAME Functionality
         //When one of the player gets the max points (18 points), they win the game
         if (player1Instance.getPoints() >= 18 ){
             console.log("player 1 wins!!!!!")
             alert("player1 wins")
+            //remove the grids
             document.getElementById("grid").style.display = "none"
             document.getElementById("grid2").style.display = "none"
             document.getElementById("grid3").style.display = "none"
+            
+            // change the text on the page 
             const winner = document.getElementById("winner")
-            const playerTurn = document.querySelector("#playerTurn")
             winner.style.display ="block"
             winner.innerHTML ="Player 1 Wins!!"
-            playerTurn.innerHTML=""
+
             playEndMusic()
         } else if (player2Instance.getPoints() >= 18){
             alert("player2 wins")
             console.log("player 2 wins!!!!")
+            //remove the grids
             document.getElementById("grid").style.display = "none"
             document.getElementById("grid2").style.display = "none"
             document.getElementById("grid3").style.display = "none"
+
+            //change the text on the page
             const winner = document.getElementById("winner")
-            const playerTurn = document.querySelector("#playerTurn")
             winner.style.display ="block"
             winner.innerHTML ="Player 2 Wins!!"
-            playerTurn.innerHTML=""
+
             playEndMusic()
         }
     })
@@ -411,7 +427,6 @@ function playEndMusic(){
     const audio = new Audio("Images/endsong.mp3");
     audio.play();
 }
-
 
 
 

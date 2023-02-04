@@ -19,14 +19,13 @@ aside{
 
 /* style the description */
 #description{
-    
     padding-left: 1%;
     font-family: sans-serif;
     color: whitesmoke;
     text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
 }
 
-/* style the tables */
+/* style the player stats tables */
 #player1table{
     float: left;
     border: 3px solid #2E67F8;
@@ -82,7 +81,8 @@ body{
     display:grid;
     grid-template-columns: repeat(15, 1fr);
     grid-template-rows: repeat(5, 1fr);
-    grid-gap: 10px;
+    padding: 5px;
+    grid-gap: 3px;
     display:none;
     
 }
@@ -111,7 +111,7 @@ body{
 .box img{
     width:50%;
     height:80%;
-    display:block;
+    display:none;
 }
 
 
@@ -133,7 +133,7 @@ body{
 .characters-container {
     display: grid;
     grid-template-columns: repeat(10, 1fr);
-    grid-gap: 10px;
+    grid-gap: 5px;
     border: 3px solid gray;
   }
 
@@ -145,6 +145,8 @@ body{
 #grid3{
     background-color: red;
 }
+
+
 
 /* game pieces */
 .grid-item {
@@ -179,11 +181,7 @@ input[type="button"]{
 }
 
 
-
-/* adding the tanks to the background once the player wins 
-if the player one wins show the atte.png
-else if player two wins show the droid tank   */
-
+/* styling the winner text */
 #winner{
     font-size: 100px;
     text-align: center;
